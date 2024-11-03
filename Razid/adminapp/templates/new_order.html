@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<!-- PLUGINS CSS STYLE -->
+<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/simplebar/simplebar.css' %}" rel="stylesheet" />
+
+<!-- ekka CSS -->
+<link id="ekka-css" href="{% static 'css/ekka.css' %}" rel="stylesheet" />
+
+<!-- FAVICON -->
+<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+{% endblock %}
+
+
+{% block main-content %}
+
+
+
+
+			<!-- CONTENT WRAPPER -->
+			<div class="ec-content-wrapper">
+				<div class="content">
+					<div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+						<h1>New Orders</h1>
+						<p class="breadcrumbs"><span><a href="{% url 'adminhome' %}">Home</a></span>
+							<span><i class="mdi mdi-chevron-right"></i></span>Orders
+						</p>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="card card-default">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table id="responsive-data-table" class="table" style="width:100%">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Item</th>
+													<th>Name</th>
+													<th>Customer</th>
+													<th>Items</th>
+													<th>Price</th>
+													<th>Payment</th>
+													<th>Status</th>
+													<th>Date</th>
+													<th>Expected delivery<th>
+													<th>Action</th>
+												</tr>
+											</thead>
+                                            
+											<tbody>
+												
+                                                {% for order in orders %}
+												
+												<tr>
+													
+													<td>{{order.id}}</td>
+													<td><img class="product-img tbl-img" src="{{order.product.product_image.url}}" alt="product"></td>
+													<td>{{order.product.title}}</td>
+													<td>{% for i in ordered_list %}
+														{% if i.id == order.order_id %}
+														<strong>{{i.user}}</strong>
+														{% endif %}
+													{% endfor %}<br>
+														{{order.user.email}}
+													</td>
+													<td>{{order.quantity}}</td>
+													{% comment %} <td>Rs.{{i.amount}}</td> {% endcomment %}
+													<td>
+														{% for i in ordered_list %}
+															{% if i.id == order.order_id %}
+																Rs.{{ i.amount }}
+															{% endif %}
+														{% endfor %}
+													</td>
+													<td>
+														{% for i in ordered_list %}
+														{% if i.id == order.order_id %}
+																{{ i.payment_method }}
+															{% endif %}
+														{% endfor %}
+													</td>
+													{% comment %} <td><span class="mb-2 mr-2 badge badge-secondary">{{order.status}}</span> {% endcomment %}
+														<td>
+															{% for i in ordered_list %}
+															{% if i.id == order.order_id %}
+															<span class="mb-2 mr-2 badge badge-secondary">
+																<input type="hidden" name="order_id" value="{{ i.order_id }}">
+																<select name="status" class="form-select edit-status">
+																	
+															{% if i.id == order.order_id and i.status != "Delivered" %}
+																	
+																	<option value="{{ i.status }}" {% if order.status == i.status %} selected {% endif %}>
+																		{{ i.status }}
+																	</option>
+																	{% endif %}
+																	{% endif %}
+																	{% endfor %}
+																	<option value="Pending">Pending</option>
+																	<option value="Processing">Processing</option>
+																	<option value="Shipped">Shipped</option>
+																	<option value="Shipped">Enroute</option>
+																	<option value="Delivered">Delivered</option>
+																</select>
+															</span>
+														</td>
+													<td>{% for i in ordered_list %}
+														{% if i.id == order.order_id %}
+															{{ i.ordered_date }}
+														{% endif %}
+													{% endfor %}
+												</td>
+												<td>
+													{% for i in ordered_list %}
+														{% if i.id == order.order_id %}
+													<input type="date" id="delivery_date" name="delivery_date" value="{{ i.delivery_expected_date|date:'Y-m-d' }}">
+												    {% endif %}
+													{% endfor %}
+												</td>
+												
+													<td>
+														
+
+														
+														<div class="btn-group ">
+															{% comment %} <button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button> {% endcomment %}
+															
+                                                            <button type="button" class="btn btn-primary update-btn">Update</button>
+                                                            {% comment %} <a href="{% url 'orderdetail' order.id %}"> <button type="button" class="btn btn-primary ">Detail</button></a> {% endcomment %}
+
+															{% comment %} 
+															<div class="dropdown-menu">
+                                                                <form method="post" action="{% url 'update_status' %}" class="dropdown-item edit-status-form">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="order_time" value="{{ order.ordered_date }}">
+                                                                    <select name="status" class="form-select">
+                                                                        <option value="Pending">Pending</option>
+                                                                        <option value="Processing">Processing</option>
+                                                                        <option value="Shipped">Shipped</option>
+                                                                        <option value="Delivered">Delivered</option>
+                                                                    </select>
+                                                                </form>
+                                                                {% comment %} <a class="dropdown-item" href="#">Cancel</a> 
+                                                            </div> {% endcomment %}
+
+
+														</div>
+													</td>
+												</tr>
+										
+                                                {% endfor %}
+                                                
+
+												
+											</tbody>
+											
+                                            
+										</table>
+
+										
+
+
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+					
+					<nav aria-label="OrderPlaced Page navigation">
+						<ul class="pagination pagination-separated pagination-separated-rounded">
+							{% if page_obj_order_placed.has_previous %}
+							<li class="page-item">
+								<a class="page-link" href="?page_order_placed={{ page_obj_order_placed.previous_page_number }}" aria-label="Previous">
+									<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span> Prev
+									<span class="sr-only">Previous</span>
+								</a>
+							</li>
+							{% else %}
+							<li class="page-item disabled">
+								<a class="page-link" href="#" aria-label="Previous">
+									<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span> Prev
+									<span class="sr-only">Previous</span>
+								</a>
+							</li>
+							{% endif %}
+
+							{% for num in page_obj_order_placed.paginator.page_range %}
+							{% if page_obj_order_placed.number == num %}
+							<li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+							{% else %}
+							<li class="page-item"><a class="page-link" href="?page_order_placed={{ num }}">{{ num }}</a></li>
+							{% endif %}
+							{% endfor %}
+
+							{% if page_obj_order_placed.has_next %}
+							<li class="page-item">
+								<a class="page-link" href="?page_order_placed={{ page_obj_order_placed.next_page_number }}" aria-label="Next">
+									Next <span aria-hidden="true" class="mdi mdi-chevron-right ml-1"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
+							{% else %}
+							<li class="page-item disabled">
+								<a class="page-link" href="#" aria-label="Next">
+									Next <span aria-hidden="true" class="mdi mdi-chevron-right ml-1"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
+							{% endif %}
+						</ul>
+					</nav>
+
+                    
+				</div> <!-- End Content -->
+			</div> <!-- End Content Wrapper -->
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+	$(document).ready(function () {
+		$('.update-btn').click(function () {
+			var orderId = $(this).closest('tr').find('input[name="order_id"]').val();
+			var newStatus = $(this).closest('tr').find('select[name="status"]').val();
+			var deliveryDate = $(this).closest('tr').find('input[name="delivery_date"]').val();
+	
+			$.ajax({
+				type: 'POST',
+				url: '{% url "update_order_status" %}',
+				data: {
+					'order_id': orderId,
+					'status': newStatus,
+					'delivery_date': deliveryDate,  // Include delivery date in the data
+					'csrfmiddlewaretoken': '{{ csrf_token }}'
+				},
+				success: function (response) {
+					if (response.success) {
+						alert('Status updated successfully.');
+						// Optionally, update the UI to reflect the new status
+					} else {
+						alert('Failed to update status: ' + response.error);
+					}
+				},
+				error: function () {
+					alert('An error occurred while updating status.');
+				}
+			});
+		});
+	});
+	
+</script>
+ {% endblock main-content %}

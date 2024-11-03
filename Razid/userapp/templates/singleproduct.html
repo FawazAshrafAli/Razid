@@ -1,0 +1,967 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+  <script>
+
+    document.getElementById('image').addEventListener('change', function() {
+        const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+        document.getElementById('fileName').textContent = fileName;
+    });
+    
+    document.getElementById('uploadButton').addEventListener('click', function() {
+        document.getElementById('image').click();
+    });
+  </script>
+
+
+<style>
+    .star.active {
+        color: yellow; /* Set the color to yellow for active stars */
+    }
+
+    .ec-sb-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .sb-item-img {
+        width: 60px; /* Adjust as needed */
+        height: 60px; /* Ensure consistent size */
+        object-fit: cover;
+        margin-right: 10px; /* Space between image and text */
+    }
+    
+    .ec-sb-item-details {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .ec-sb-item-details h5 {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+    
+    .ec-sb-item-rating {
+        margin: 5px 0;
+    }
+    
+    .ec-sb-item-rating .ecicon {
+        font-size: 12px; /* Adjust star size */
+    }
+    
+    .ec-sb-item-details span {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    }
+    
+   
+</style>
+
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+
+    <!-- Background css -->
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+ <!-- Ec breadcrumb start -->
+ <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row ec_breadcrumb_inner">
+                    <div class="col-md-6 col-sm-12">
+                        <h2 class="ec-breadcrumb-title">Single Products</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <!-- ec-breadcrumb-list start -->
+                        <ul class="ec-breadcrumb-list">
+                            <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="ec-breadcrumb-item active">Products</li>
+                        </ul>
+                        <!-- ec-breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ec breadcrumb end -->
+
+
+    <!-- Sart Single product -->
+    <section class="ec-page-content section-space-p">
+        
+        <div class="container">
+            <div class="row">
+                <div class="ec-pro-rightside ec-common-rightside col-lg-9 order-lg-last col-md-12 order-md-first">
+                    
+
+
+                    <!-- Single product content Start -->
+    
+                    <div class="single-pro-block">
+                        <div class="single-pro-inner">
+                            <div class="row">
+                                <div class="single-pro-img">
+                                    <div class="single-product-scroll">
+                                        <div class="single-product-cover">
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="{{product.product_image.url}}"
+                                                    alt="" style="width: 465px; height: 630px;">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="{{product.product_image1.url}}"
+                                                    alt="" style="width: 465px; height: 630px;">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="{{product.product_image2.url}}"
+                                                    alt="" style="width: 465px; height: 630px;">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="{{product.product_image3.url}}"
+                                                    alt="" style="width: 465px; height: 630px;">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="{{product.product_image4.url}}"
+                                                    alt="" style="width: 465px; height: 630px;">
+                                            </div>
+                                        </div>
+                                        <div class="single-nav-thumb">
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="{{product.product_image.url}}"
+                                                    alt="" style="width: 150px; height: 100px;">
+                                            </div>
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="{{product.product_image1.url}}"
+                                                    alt="" style="width: 150px; height: 100px;">
+                                            </div>
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="{{product.product_image2.url}}"
+                                                    alt="" style="width: 150px; height: 100px;">
+                                            </div>
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="{{product.product_image3.url}}"
+                                                    alt="" style="width: 150px; height: 100px;">
+                                            </div>
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="{{product.product_image4.url}}"
+                                                    alt="" style="width: 150px; height: 100px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-pro-desc">
+                                    <div class="single-pro-content">
+                                        <h5 class="ec-single-title">{{product.title}}</h5>
+                                        <div class="ec-single-rating-wrap">
+                                            <div class="ec-pro-rating">
+                                                
+                                                {% if product.avg_rating == 0 %}
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                
+                                                {% elif product.avg_rating == 1 %}
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                             {% elif product.avg_rating == 2 %}                                                            
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+
+
+                                             {% elif product.avg_rating == 3 %}
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+
+                                             {% elif product.avg_rating == 4 %}
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+
+                                             {% elif product.avg_rating == 5 %}
+                                             <i class="ecicon eci-star fill"></i>
+                                             <i class="ecicon eci-star fill"></i>
+                                             <i class="ecicon eci-star fill"></i>
+                                             <i class="ecicon eci-star fill"></i>
+                                             <i class="ecicon eci-star fill"></i>
+                                             
+                                             {% endif %}
+                                            
+                                        </div>
+                                            <span class="ec-read-review"><a href="#ec-spt-nav-review">Be the first to
+                                                    review this product</a></span>
+                                        </div>
+                                        <div class="ec-single-desc">{{product.description}}</div>
+
+                                        <!-- <div class="ec-single-sales">
+                                            <div class="ec-single-sales-inner">
+                                                <div class="ec-single-sales-title">sales accelerators</div>
+                                                <div class="ec-single-sales-visitor">real time <span>24</span> visitor
+                                                    right now!</div>
+                                                <div class="ec-single-sales-progress">
+                                                    <span class="ec-single-progress-desc">Hurry up!left 29 in
+                                                        stock</span>
+                                                    <span class="ec-single-progressbar"></span>
+                                                </div>
+                                                <div class="ec-single-sales-countdown">
+                                                    <div class="ec-single-countdown"><span
+                                                            id="ec-single-countdown"></span></div>
+                                                    <div class="ec-single-count-desc">Time is Running Out!</div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="ec-single-price-stoke">
+                                            <div class="ec-single-price">
+                                                <span class="ec-single-ps-title">As low as</span>
+                                                <span class="new-price">{{product.price}}</span>
+                                            </div>
+                                            <div class="ec-single-stoke">
+                                                <span class="ec-single-ps-title">{{product.availability}}</span>
+                                                <!-- <span class="ec-single-sku">SKU#: WH12</span> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="ec-pro-variation">
+                                            <div class="ec-pro-variation-inner ec-pro-variation-size">
+                                                <span>SIZE</span>
+                                                <div class="ec-pro-variation-content">
+                                                    <ul>
+                                                        {% for size in sizes %}
+                                                             <li>{{ size }}</li>
+                                                        {% endfor %}
+                                                        {{product.custom_size}}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="ec-pro-variation-inner ec-pro-variation-color">
+                                                <span>Color</span>
+                                                <div class="ec-pro-variation-content">
+                                                    <ul>
+                                                        {% for color in colors %}
+                                                        <li >
+                                                            <span style="background-color: {{ color|safe }}"></span>
+                                                        </li>
+                                                    {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ec-single-qty">
+                                            <!-- <div class="qty-plus-minus">
+                                                <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
+                                            </div> -->
+                                            <div class="ec-single-cart ">
+                                                <form action="{% url 'add_to_cart' %}" class="d-inline" style="width: 150px;height: 40px;font-family:Georgia, 'Times New Roman', Times, serif;">
+                                                    <input type="hidden" name="prod_id" value="{{ encrypted_product_id }}">
+                                                    <button type="submit" class=" gap-2 btn btn-dark p-1 m-1 btn-lg text-decoration-none text-white">Add to Cart</button>
+                                                </form>                                           
+                                             </div>
+                                            <!-- <div class="ec-single-wishlist">
+                                                <a class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-shopping-basket"></i></a>
+                                            </div> -->
+                                            <div class="wishlist-button" style="margin-top: 4px; margin-left: 16px;">
+                                                {% if wishlist %}
+                                                <form action="{% url 'minus_wishlist' %}" style="width: 50px;">
+                                                    <input type="hidden" name="prod_id" value="{{encrypted_product_id}}">
+                                                    <button type="submit" class="plus-wishlist btn shadow">
+                                                        <i class="fas fa-heart fa-lg" style="color: red;"></i>
+                                                        
+                                                    </button>
+                                                    {% comment %} <a href="{% url 'minus_wishlist'  %}" class="plus-wishlist btn shadow" style="width: 50px;">
+                                                        <i class="fas fa-heart fa-lg" style="color: red;"></i>
+                                                    </a> {% endcomment %}
+                                                </form>
+                                                {% else %}
+                                                    {% comment %} <a href="{% url 'plus_wishlist'  %}" class="minus-wishlist btn shadow" style="width: 50px;">
+                                                        <i class="fas fa-heart fa-lg" style="color: rgb(0, 0, 0);"></i>
+                                                    </a> {% endcomment %}
+                                                    <form action="{% url 'plus_wishlist' %}" style="width: 50px;">
+                                                        <input type="hidden" name="prod_id" value="{{encrypted_product_id}}">
+                                                        <button type="submit" class="minus-wishlist btn shadow">
+                                                            <i class="fas fa-heart fa-lg" style="color: rgb(0, 0, 0);"></i>
+                                                            
+                                                        </button>
+                                                </form>
+
+                                                {% endif %}
+                                            </div>
+                                            <!-- <div class="ec-single-quickview">
+                                                <a href="#" class="ec-btn-group quickview" data-link-action="quickview"
+                                                    title="Quick view" data-bs-toggle="modal"
+                                                    data-bs-target="#ec_quickview_modal"><i class="fi-rr-eye"></i></a>
+                                            </div> -->
+                                        </div>
+                                        <div class="ec-single-social">
+                                            <ul class="mb-0">
+                                                <li class="list-inline-item facebook">
+                                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                                                        <i class="ecicon eci-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item twitter">
+                                                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}">
+                                                        <i class="ecicon eci-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item instagram">
+                                                    <a href="https://www.instagram.com/?url={{ request.build_absolute_uri }}">
+                                                        <i class="ecicon eci-instagram"></i>
+                                                    </a>
+                                                </li>
+                                                <!-- Add other social media icons and their respective URLs -->
+                                                <li class="list-inline-item youtube-play">
+                                                    <a href="https://www.youtube.com/" target="_blank">
+                                                        <i class="ecicon eci-youtube-play"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item whatsapp">
+                                                    <a href="whatsapp://send?text={{ request.build_absolute_uri }}" data-action="share/whatsapp/share">
+                                                        <i class="ecicon eci-whatsapp"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        &nbsp;<br/>&nbsp;
+                                        {% if admin_choice == "yes" %}
+                                            {% comment %} <div class="ec-upload-form"> {% endcomment %}
+                                                <form action="{% url 'imageupload' product.id %}" method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <div class="ec-cart-wrap">
+                                                        <h4>Enter your text here:</h4>
+                                                        <div class="input-wrapper">
+                                                            <input type="text" name="your-text" placeholder="Enter Your Text">
+                                                        </div>
+                                                        
+                                                        <h4>Select Image:</h4>
+                                                        <div class="ec-cart-select-inner file-upload-wrapper">
+                                                            <input type="file" id="image" name="upload-image" accept="image/*" class="file-upload-input">
+                                                            <button type="button" class="file-upload-button" id="uploadButton">Choose File</button>
+                                                            <span id="fileName" class="file-upload-name">No file chosen</span>
+                                                        </div>
+                                                        
+                                                        <button class="btn btn-primary" type="submit" value="Submit">Upload your Files</button>
+                                                    </div>
+                                                </form>
+                                        
+
+                                                {% if error %}
+                                                    <p style="color:red;">{{ error }}</p>
+                                                {% endif %}
+                                            {% comment %} </div> {% endcomment %}
+                                        {% endif %}
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!--Single product content End -->
+                    <!-- Single product tab start -->
+                    <div class="ec-single-pro-tab">
+                        <div class="ec-single-pro-tab-wrapper">
+                            <div class="ec-single-pro-tab-nav">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab"
+                                            data-bs-target="#ec-spt-nav-details" role="tab" aria-controls="ec-spt-nav-details" aria-selected="true">Detail</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-info"
+                                             role="tab" aria-controls="ec-spt-nav-info" aria-selected="false">More Information</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-review"
+                                             role="tab" aria-controls="ec-spt-nav-review" aria-selected="false">Reviews</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content  ec-single-pro-tab-content">
+                                <div id="ec-spt-nav-details" class="tab-pane fade show active">
+                                    <div class="ec-single-pro-tab-desc">
+                                        <p>{{product.full_detail}}</p>
+                                        
+                                        
+                                         <ul> 
+                                            <li>{{product.product_type}}</li>
+                                            <li>{{product.description}}</li>
+
+                                            <!-- <li>Downloadable/Digital Products, Virtual Products</li>
+                                            <li>Inventory Management with Backordered items</li>
+                                            <li>Flatlock seams throughout.</li> -->
+                                        </ul> 
+                                    </div>
+                                </div>
+                                <div id="ec-spt-nav-info" class="tab-pane fade">
+                                    <div class="ec-single-pro-tab-moreinfo">
+                                        <!-- <ul> -->
+                                            <!-- <li><span></span> 1000 g</li>
+                                            <li><span>Dimensions</span> 35 × 30 × 7 cm</li>
+                                            <li><span>Color</span> Black, Pink, Red, White</li> -->
+                                            <ul>
+                                                {% for size in sizes %}
+                                                    <li> {{ size }}</li>
+                                                {% endfor %}
+                                                <li>{{product.custom_size}}</li>
+
+                                            <!-- </ul> -->
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div id="ec-spt-nav-review" class="tab-pane fade">
+                                    <div class="row">
+                                        {% for review in reviews %}
+                                        <div class="ec-t-review-wrapper">
+                                            <div class="ec-t-review-item">
+                                                <div class="ec-t-review-avtar">
+                                                    <i
+                                        class="fi-rr-user"></i>
+                                                    
+                                                </div>
+                                                <div class="ec-t-review-content">
+                                                    <div class="ec-t-review-top">
+                                                        <div class="ec-t-review-name">{{review.user.username}}</div>
+                                                        <div class="ec-t-review-rating">
+                                                        {% if review.rating == 0 %}
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                              
+                                                        {% elif review.rating == 1 %}
+                                                           <i class="ecicon eci-star fill"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                        {% elif review.rating == 2 %}                                                            
+                                                           <i class="ecicon eci-star fill"></i>
+                                                           <i class="ecicon eci-star fill"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+                                                           <i class="ecicon eci-star-o"></i>
+
+
+                                                        {% elif review.rating == 3 %}
+                                                           <i class="ecicon eci-star fill"></i>
+                                                           <i class="ecicon eci-star fill"></i>
+                                                           <i class="ecicon eci-star fill"></i>
+
+                                                        {% elif review.rating == 4 %}
+                                                           <i class="ecicon eci-star fill"></i>
+                                                           <i class="ecicon eci-star fill"></i>
+                                                           <i class="ecicon eci-star fill"></i>
+                                                           <i class="ecicon eci-star fill"></i>
+
+                                                        {% elif review.rating == 5 %}
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        
+                                                        {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="ec-t-review-bottom">
+                                                        <p>{{review.description}}
+                                                        </p>
+                                                        <p>{{review.created_at}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="ec-t-review-item">
+                                                <div class="ec-t-review-avtar">
+                                                    <img src="assets/images/review-image/2.jpg" alt="" />
+                                                </div>
+                                                <div class="ec-t-review-content">
+                                                    <div class="ec-t-review-top">
+                                                        <div class="ec-t-review-name">Linda Morgus</div>
+                                                        <div class="ec-t-review-rating">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ec-t-review-bottom">
+                                                        <p>Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting industry. Lorem Ipsum has been the industry's
+                                                            standard dummy text ever since the 1500s, when an unknown
+                                                            printer took a galley of type and scrambled it to make a
+                                                            type specimen.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                        </div>
+                                        {% endfor %}
+                                        <div class="ec-ratting-content">
+                                            <h3>Add a Review</h3>
+                                            <div class="ec-ratting-form">
+                                                <form id="review-form" action="{% url 'review' encrypted_product_id %}" method="post">
+                                                    {% csrf_token %}
+                                                    <div class="ec-ratting-star">
+                                                        <span>Your rating:</span>
+                                                        <div class="ec-t-review-rating">
+                                                            <span class="star" data-value="1" style="color: black;">&#9733;</span>
+                                                            <span class="star" data-value="2" style="color: black;">&#9733;</span>
+                                                            <span class="star" data-value="3" style="color: black;">&#9733;</span>
+                                                            <span class="star" data-value="4" style="color: black;">&#9733;</span>
+                                                            <span class="star" data-value="5" style="color: black;">&#9733;</span>
+                                                            <input id="rating-input" type="hidden" name="rating" value="0"> <!-- Hidden input to store the rating value -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="ec-ratting-input form-submit">
+                                                        <textarea name="your-commemt" placeholder="Enter Your Comment"></textarea>
+                                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product details description area end -->
+                </div>
+                <!-- Sidebar Area Start -->
+                <div class="ec-pro-leftside ec-common-leftside col-lg-3 order-lg-first col-md-12 order-md-last">
+                    <div class="ec-sidebar-wrap">
+                        <!-- Sidebar Category Block -->
+                        <div class="ec-sidebar-block">
+                            <div class="ec-sb-title">
+                                <h3 class="ec-sidebar-title">Category</h3>
+                            </div>
+                            {% for i in Category %}
+
+                            <div class="ec-sb-block-content">
+                                <ul>
+                                    <li>
+                                        <div class="ec-sidebar-block-item">{{i.name}}</div>
+                                        <ul style="display: none;">
+                                            {% for j in SubCate %}
+                                            {% if j.parent_category.name == i.name %}
+                                            <li>
+                                                <div class="ec-sidebar-sub-item"><a href="{% url 'product-detail-encrypted' j.encrypted_id %}">{{j.name}} 
+                                                    {% for pro in products %}
+                                                {% if pro.data.name == j.name %}<span
+                                                    title="Available Stock">- {{pro.quantity}}</span> 
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    <!-- <span>-25</span> -->
+                                                </a>
+                                                </div>
+                                            </li>
+                                            {% endif %}
+                                            {% endfor %}
+                                            
+                                           
+                                        
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% endfor %}
+                         
+                            
+                            
+                            
+                        </div>
+                        <!-- Sidebar Category Block -->
+                    </div>
+                    <div class="ec-sidebar-slider" style="margin-top:20px;">
+                        <div class="ec-sb-slider-title">Best Sellers</div>
+                        <div class="ec-sb-pro-sl" style="">
+                            {% for i in most_ordered_products %}
+                            <div class="ec-sb-item" style="margin-bottom: 40px;width: 200px; height: 80px;display:flex;">
+                                <a href="{% url 'singleproduct' i.product.id %}" class="sidekka_pro_img" >
+                                    <img src="{{i.product.product_image.url}}" alt="product" style="width: 100px; height: 100px;"/>
+                                </a>
+                                <div class="ec-sb-item-details" style="margin-left:110px;display: flex; flex-direction: column; justify-content: center; margin-top: -80px;">
+                                    <h5 style="font-size: 14px; line-height: 1.2;">
+                                        <a href="{% url 'singleproduct' i.product.id %}" style="text-decoration: none; color: inherit;">
+                                            {{i.product.title}}
+                                        </a>
+                                    </h5>
+                                    <div class="ec-sb-item-rating" style="margin: 5px 0;">
+                                        {% if i.product.avg_rating2 == 0 %}
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                        {% elif i.product.avg_rating2 == 1 %}
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                        {% elif i.product.avg_rating2 == 2 %}
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                        {% elif i.product.avg_rating2 == 3 %}
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                        {% elif i.product.avg_rating2 == 4 %}
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star-o" style="font-size: 12px;"></i>
+                                        {% elif i.product.avg_rating2 == 5 %}
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                            <i class="ecicon eci-star fill" style="font-size: 12px;"></i>
+                                        {% endif %}
+                                    </div>
+                                    <span style="font-size: 14px; font-weight: bold; color: #333;">Rs.{{i.product.price}}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                                        
+                </div>
+                <!-- Sidebar Area Start -->
+            </div>
+        </div>
+    </section>
+    <!-- End Single product -->
+
+    <!-- Related Product Start -->
+    <section class="section ec-releted-product section-space-p">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="section-title">
+                        <h2 class="ec-bg-title">Related product</h2>
+                        <h2 class="ec-title">Related product</h2>
+                        <p class="sub-title">Browse The Collection of Top Products</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-minus-b-30">
+                <!-- Related Product Content -->
+                {% for product in relatedproducts|slice:":4" %}
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                    <div class="ec-product-inner">
+                        <div class="ec-pro-image-outer">
+                            <div class="ec-pro-image">
+                                <a href="product-left-sidebar.html" class="image">
+                                    <img class="main-image"
+                                        src="{{product.product_image.url}}" alt="Product" style="width: 365px; height: 410px;" />
+                                    <img class="hover-image"
+                                        src="{{product.product_image.url}}" alt="Product" style="width: 365px; height: 410px;" />
+                                </a>
+                                <span class="percentage">20%</span>
+                                <!-- <a href="#" class="quickview" data-link-action="quickview" title="Quick view"
+                                    data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><i class="fi-rr-eye"></i></a> -->
+                                <div class="ec-pro-actions">
+                                    <!-- <form action="/add-to-cart" class="d-inline" style="width: 150px;height: 40px;font-family:Georgia, 'Times New Roman', Times, serif;">
+                                        <input type="hidden" name="prod_id" value="{{ product.id }}">
+                                        <button type="submit" class=" gap-2 btn btn-dark p-1 m-1 btn-lg text-decoration-none text-white"><i
+                                            class="fi-rr-shopping-basket"></i></button>
+                                    </form> -->
+                                    <!-- <a class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-heart"></i></a> -->
+                                    {% comment %} <div class="wishlist-button" style="margin-left: 120px;">
+                                    {% if wishlist %}
+                                        <a href="{% url 'minus_wishlist' product.id %}" class="plus-wishlist btn  shadow  " style="width: 50px;"><i class="fas fa-heart fa-lg" style="color: red;"></i></a>
+                                    {% else %}
+                                        <a href="{% url 'plus_wishlist' product.id %}" class="minus-wishlist btn  shadow " style="width: 50px;"><i class="fas fa-heart fa-lg" style="color: rgb(0, 0, 0);"></i></a>
+                                    {% endif %}
+                                    </div> {% endcomment %}
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ec-pro-content">
+                            <h5 class="ec-pro-title"><a href="product-left-sidebar.html">{{product.title}}</a></h5>
+                            <div class="ec-pro-rating">
+                                                
+                                {% if product.avg == 0 %}
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                
+                                {% elif product.avg == 1 %}
+                                <i class="ecicon eci-star fill"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+                             {% elif product.avg == 2 %}                                                            
+                                <i class="ecicon eci-star fill"></i>
+                                <i class="ecicon eci-star fill"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+                                <i class="ecicon eci-star-o"></i>
+
+
+                             {% elif product.avg == 3 %}
+                                <i class="ecicon eci-star fill"></i>
+                                <i class="ecicon eci-star fill"></i>
+                                <i class="ecicon eci-star fill"></i>
+
+                             {% elif product.avg == 4 %}
+                                <i class="ecicon eci-star fill"></i>
+                                <i class="ecicon eci-star fill"></i>
+                                <i class="ecicon eci-star fill"></i>
+                                <i class="ecicon eci-star fill"></i>
+
+                             {% elif product.avg == 5 %}
+                             <i class="ecicon eci-star fill"></i>
+                             <i class="ecicon eci-star fill"></i>
+                             <i class="ecicon eci-star fill"></i>
+                             <i class="ecicon eci-star fill"></i>
+                             <i class="ecicon eci-star fill"></i>
+                             
+                             {% endif %}
+                            
+                        </div>
+                            <!-- <div class="ec-pro-list-desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dutmmy text ever since the 1500s, when an unknown printer took a galley.</div> -->
+                            <span class="ec-price">
+                                <!-- <span class="old-price">${{product.price}}</span> -->
+                                <span class="new-price">${{product.price}}</span>
+                            </span>
+                            <div class="ec-pro-option">
+                                <!-- <div class="ec-pro-color">
+                                    <span class="ec-pro-opt-label">Color</span>
+                                    <ul class="ec-opt-swatch ec-change-img">
+                                        <li class="active"><a href="#" class="ec-opt-clr-img"
+                                                data-src="assets/images/product-image/6_1.jpg"
+                                                data-src-hover="assets/images/product-image/6_1.jpg"
+                                                data-tooltip="Gray"><span
+                                                    style="background-color:#e8c2ff;"></span></a></li>
+                                        <li><a href="#" class="ec-opt-clr-img"
+                                                data-src="assets/images/product-image/6_2.jpg"
+                                                data-src-hover="assets/images/product-image/6_2.jpg"
+                                                data-tooltip="Orange"><span
+                                                    style="background-color:#9cfdd5;"></span></a></li>
+                                    </ul>
+                                </div> -->
+                                <!-- <div class="ec-pro-size">
+                                    <span class="ec-pro-opt-label">Size</span>
+                                    <ul class="ec-opt-size">
+                                        <li class="active"><a href="#" class="ec-opt-sz"
+                                                data-old="$25.00" data-new="$20.00"
+                                                data-tooltip="Small">S</a></li>
+                                        <li><a href="#" class="ec-opt-sz" data-old="$27.00"
+                                                data-new="$22.00" data-tooltip="Medium">M</a></li>
+                                        <li><a href="#" class="ec-opt-sz" data-old="$35.00"
+                                                data-new="$30.00" data-tooltip="Extra Large">XL</a></li>
+                                    </ul>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            
+             
+            </div>
+        </div>
+    </section>
+    <!-- Related Product end -->
+
+    <script>
+        // JavaScript to handle star rating
+        document.querySelectorAll('.star').forEach(function(star) {
+            star.addEventListener('click', function() {
+                var value = this.dataset.value;
+                document.querySelector('#rating-input').value = value;
+                
+                // Reset color of all stars
+                document.querySelectorAll('.star').forEach(function(s) {
+                    s.style.color = 'black';
+                });
+    
+                // Change color of clicked star and all previous stars
+                this.style.color = 'orange';
+                var prevStars = this.previousElementSibling;
+                while (prevStars) {
+                    prevStars.style.color = 'orange';
+                    prevStars = prevStars.previousElementSibling;
+                }
+            });
+        });
+    </script>
+
+    <script>
+
+
+ $('.plus-wishlist').click(function(){
+     var id=$(this).attr("pid").toString();
+     console.log(id);
+     $.ajax({
+         type:"GET",
+         url:"user/pluswishlist/" ,
+         data:{
+             prod_id:id
+         },
+         success:function(data){
+             //alert(data.message)
+             window.location.href = '//http:localhost:8000/singleproduct/' + id + '/' + slug + '/';
+         }
+     })
+ })
+
+
+ $('.minus-wishlist').click(function(){
+     window.alert("inside minus")
+     window.alert($(this).attr("pid").toString())
+     var id=$(this).attr("pid").toString();
+     console.log(id);
+     $.ajax({
+         type:"GET",
+         url:"/minuswishlist/",
+         data:{
+             prod_id:id
+         },
+         success:function(data){
+             window.alert(prod_id)
+             //alert(data.message)
+             window.location.href = '//http:localhost:8000/singleproduct/' + id + '/' + slug + '/';
+         }
+     })
+ })
+
+</script>
+
+{% endblock main-content %}

@@ -1,0 +1,363 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+
+ 
+
+    
+    
+    
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+
+    <!-- Background css -->
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+
+
+
+    <!-- Ec breadcrumb start -->
+    <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row ec_breadcrumb_inner">
+                        <div class="col-md-6 col-sm-12">
+                            <h2 class="ec-breadcrumb-title">Wishlist</h2>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <!-- ec-breadcrumb-list start -->
+                            <ul class="ec-breadcrumb-list">
+                                <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="ec-breadcrumb-item active">Wishlist</li>
+                            </ul>
+                            <!-- ec-breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ec breadcrumb end -->
+
+    <!-- Ec Wishlist page -->
+    <section class="ec-page-content section-space-p">
+        <div class="container">
+            <div class="row">
+                <!-- Compare Content Start -->
+                <div class="ec-wish-rightside col-lg-12 col-md-12">
+                    <!-- Compare content Start -->
+                    <div class="ec-compare-content">
+                        <div class="ec-compare-inner">
+                            <div class="row margin-minus-b-30">
+                                {% if wishlist_message %}
+                                <p style="font-size: 24px; text-align: center; margin: 20px auto; color: #333;">
+                                    {{ wishlist_message }}
+                                </p>
+                            {% else %}
+
+                                {% for pro in products %}
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                    <div class="ec-product-inner">
+                                        <div class="ec-pro-image-outer">
+                                            <div class="ec-pro-image">
+                                                <form method="post" action="{% url 'delete_item' pro.id %}">
+                                                    {% csrf_token %}
+                                                    <span style="margin-left:300px">
+                                                        <button name="delete_wish" type="submit">&#10006;</button>
+                                                    </span>
+                                                </form>
+
+
+
+                                                <a href="product-left-sidebar.html" class="image">
+                                                    <img class="main-image" src="{{pro.product.product_image.url}}"
+                                                        alt="Product" style="width: 365px; height: 410px;" />
+                                                    <img class="hover-image" src="{{pro.product.product_image.url}}"
+                                                        alt="Product" style="width: 365px; height: 410px;" />
+                                                </a>
+                                                
+                                                <span class="percentage">20%</span>
+                                                {% comment %} <a href="#" class="quickview" data-link-action="quickview"
+                                                    title="Quick view" data-bs-toggle="modal"
+                                                    data-bs-target="#ec_quickview_modal"><i class="fi-rr-eye"></i></a> {% endcomment %}
+                                                <div class="ec-pro-actions">
+                                                    <!-- <a href="compare.html" class="ec-btn-group compare"
+                                                        title="Compare"><i class="fi fi-rr-arrows-repeat"></i></a> -->
+                                                    {% comment %} <button title="Add To Cart" class="add-to-cart"><i
+                                                            class="fi-rr-shopping-basket"></i> Add To Cart</button> {% endcomment %}
+                                                    {% comment %} <a class="ec-btn-group wishlist" title="Wishlist"><i
+                                                            class="fi-rr-heart"></i></a> {% endcomment %}
+                                                </div>
+                                                <form action="{% url 'add_to_cart_wishlist' %}" >
+                                                    <input type="hidden" name="prod_id" value="{{ pro.product.id }}">
+                                                    <button type="submit" class="add-to-cart"><i
+                                                        class="fi-rr-shopping-basket"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="ec-pro-content">
+                                            <h5 class="ec-pro-title"><a href="{% url 'singleproduct' pro.product.encrypted_pro_id %}">{{pro.product.title}}</a></h5>
+                                            {% comment %} <div class="ec-pro-rating">
+                                                
+                                                {% if pro.avg_rating == 0 %}
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                
+                                                {% elif pro.avg_rating == 1 %}
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                             {% elif pro.avg_rating == 2 %}                                                            
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                    
+                    
+                                             {% elif pro.avg_rating == 3 %}
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                    
+                                             {% elif pro.avg_rating == 4 %}
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                    
+                                             {% elif pro.avg_rating == 5 %}
+                                             <i class="ecicon eci-star fill"></i>
+                                             <i class="ecicon eci-star fill"></i>
+                                             <i class="ecicon eci-star fill"></i>
+                                             <i class="ecicon eci-star fill"></i>
+                                             <i class="ecicon eci-star fill"></i>
+                                             
+                                             {% endif %}
+                                            
+                                        </div> {% endcomment %}
+                                            <!-- <div class="ec-pro-list-desc">Lorem Ipsum is simply dummy text of the
+                                                printing and typesetting industry. Lorem Ipsum is simply dutmmy text
+                                                ever since the 1500s, when an unknown printer took a galley.</div>
+                                            <span class="ec-price"> -->
+                                                {% comment %} <span class="old-price">${{pro.product.price}}</span> {% endcomment %}
+                                                <span class="new-price">${{pro.product.price}}</span>
+                                            </span>
+                                            <div class="ec-pro-option">
+                                                <!-- <div class="ec-pro-color">
+                                                    <span class="ec-pro-opt-label">Color</span>
+                                                    <ul class="ec-opt-swatch ec-change-img">
+                                                        <li class="active"><a href="#" class="ec-opt-clr-img"
+                                                                data-src="assets/images/product-image/7_1.jpg"
+                                                                data-src-hover="assets/images/product-image/7_1.jpg"
+                                                                data-tooltip="Gray"><span
+                                                                    style="background-color:#01f1f1;"></span></a></li>
+                                                        <li><a href="#" class="ec-opt-clr-img"
+                                                                data-src="assets/images/product-image/7_2.jpg"
+                                                                data-src-hover="assets/images/product-image/7_2.jpg"
+                                                                data-tooltip="Orange"><span
+                                                                    style="background-color:#b89df8;"></span></a></li>
+                                                    </ul>
+                                                </div> -->
+                                                <!-- <div class="ec-pro-size">
+                                                    <span class="ec-pro-opt-label">Size</span>
+                                                    <ul class="ec-opt-size">
+                                                        <li class="active"><a href="#" class="ec-opt-sz"
+                                                                data-old="$12.00" data-new="$10.00"
+                                                                data-tooltip="Small">S</a></li>
+                                                        <li><a href="#" class="ec-opt-sz" data-old="$15.00"
+                                                                data-new="$12.00" data-tooltip="Medium">M</a></li>
+                                                        <li><a href="#" class="ec-opt-sz" data-old="$20.00"
+                                                                data-new="$17.00" data-tooltip="Extra Large">XL</a></li>
+                                                    </ul>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <!--compare content End -->
+                </div>
+                <!-- Compare Content end -->
+            </div>
+        </div>
+    </section>
+
+<script>
+
+    $('.plus-wishlis').click(function(){
+        var id=$(this).attr("pid").toString();
+        $.ajax({
+            type:"GET",
+            url:"/pluswishlist",
+            data:{
+                prod_id:id
+            },
+            success:function(data){
+                //alert(data.message)
+                window.location.href = 'http://localhost:8000/singleproduct/' + encrypted_pro_id;
+            }
+        })
+    })
+    
+    
+    $('.minus-wishlis').click(function(){
+        var id=$(this).attr("pid").toString();
+        $.ajax({
+            type:"GET",
+            url:"/minuswishlist",
+            data:{
+                prod_id:id
+            },
+            success:function(data){
+                //alert(data.message)
+                window.location.href = 'http://localhost:8000/singleproduct/' + encrypted_pro_id;
+            }
+        })
+    })</script>
+
+
+<script>
+
+    // Assuming you have a button with the class 'delete-item-btn' for each item
+document.querySelectorAll('.delete-item-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const itemId = this.dataset.itemId; // Assuming you have a data attribute 'data-item-id' with the item's ID
+        fetch(`/delete-item/${itemId}/`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}' // Assuming you're using Django's CSRF protection
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Item deleted successfully, update UI or show a message
+                location.reload(); // Refresh the page or update UI dynamically
+            } else {
+                console.error('Failed to delete item');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
+
+</script>
+
+{% endblock main-content %}

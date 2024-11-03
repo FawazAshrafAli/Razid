@@ -1,0 +1,178 @@
+	
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<!-- PLUGINS CSS STYLE -->
+<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/simplebar/simplebar.css' %}" rel="stylesheet" />
+
+<!-- ekka CSS -->
+<link id="ekka-css" href="{% static 'css/ekka.css' %}" rel="stylesheet" />
+
+<!-- FAVICON -->
+<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+
+{% endblock %}
+
+
+{% block main-content %}
+
+  			<!-- CONTENT WRAPPER -->
+              <div class="ec-content-wrapper">
+				<div class="content">
+					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+						<div>
+							<h1>Product</h1>
+							<p class="breadcrumbs"><span><a href="{% url 'adminhome' %}">Home</a></span>
+								<span><i class="mdi mdi-chevron-right"></i></span>Product
+							</p>
+						</div>
+						<div>
+							<a href="{% url 'product_grid' %}" class="btn btn-primary"> Add Porduct</a>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12">
+							<div class="card card-default">
+								{% comment %} <div class="card-header card-header-border-bottom d-flex justify-content-between">
+									<div class="card-bar">
+										<div class="col-lg-6 col-md-12">
+											<input type="text" class="form-control" id="searchProduct"
+												placeholder="search with product name..">
+										</div>
+										<div class="col-lg-6 col-md-12 sort">
+											<div class="col-lg-4 col-md-6 p-space">
+												<select class="form-control" id="dropdownCategory">
+													<option value="ALL">ALL Category</option>
+													<option value="MEN">Men's</option>
+													<option value="WOMAN">Woman's</option>
+													<option value="KID">Kids</option>
+													<option value="OTHER">OTHER</option>
+												</select>
+											</div>
+											<div class="col-lg-4 col-md-6 p-space">
+												<select class="form-control" id="dropdownOrderBy">
+													<option value="ALL">ORDER BY</option>
+													<option value="MEN">Letest</option>
+													<option value="WOMAN">Price Low - High</option>
+													<option value="KID">Price High - Low</option>
+													<option value="OTHER">OTHER</option>
+												</select>
+											</div> 
+										</div>
+									</div>
+								</div> {% endcomment %}
+
+								<div class="card-body">
+
+									<div class="row">
+										{% for product in page_obj %}
+
+										<div class="col-lg-3 col-md-4 col-sm-6">
+											<div class="card-wrapper">
+												<div class="card-container">
+													<div class="card-top">
+														<img class="card-image" src="{{product.product_image.url}}"
+															alt="" style="width:300px;height:340px"/>
+													</div>
+													<div class="card-bottom">
+														<h3>{{product.title}}</h3>
+														<p>{{product.price}}</p>
+													</div>
+													<div class="card-action">
+														{% comment %} <div class="card-edit"><i
+																class="mdi mdi-circle-edit-outline"></i></div>
+														<div class="card-preview"><i class="mdi mdi-eye-outline"></i>
+														</div> {% endcomment %}
+														<div class="card-remove"> <form method='post' action="{% url 'deletelistgrid' product.id %}">
+															{% csrf_token %}
+														<a  href="#"><button name="delete_list" type="submit"><i
+															class="mdi mdi mdi-delete-outline"></i></button></a>
+														</form></div>
+													</div>
+												</div>
+											</div>
+										</div>
+                                        {% endfor %}
+										
+									</div>
+                                    
+									<div class="row">
+										<nav aria-label="Page navigation example p-0">
+											<ul class="pagination pagination-separated pagination-separated-rounded">
+												{% if page_obj.has_previous %}
+												<li class="page-item">
+													<a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+														<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span> Prev
+														<span class="sr-only">Previous</span>
+													</a>
+												</li>
+												{% else %}
+												<li class="page-item disabled">
+													<a class="page-link" href="#" aria-label="Previous">
+														<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span> Prev
+														<span class="sr-only">Previous</span>
+													</a>
+												</li>
+												{% endif %}
+			
+												{% for num in page_obj.paginator.page_range %}
+												{% if page_obj.number == num %}
+												<li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+												{% else %}
+												<li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+												{% endif %}
+												{% endfor %}
+			
+												{% if page_obj.has_next %}
+												<li class="page-item">
+													<a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+														Next <span aria-hidden="true" class="mdi mdi-chevron-right ml-1"></span>
+														<span class="sr-only">Next</span>
+													</a>
+												</li>
+												{% else %}
+												<li class="page-item disabled">
+													<a class="page-link" href="#" aria-label="Next">
+														Next <span aria-hidden="true" class="mdi mdi-chevron-right ml-1"></span>
+														<span class="sr-only">Next</span>
+													</a>
+												</li>
+												{% endif %}
+											</ul>
+										</nav>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Footer -->
+			<footer class="footer mt-auto">
+				<div class="copyright bg-white">
+					<p>
+						Copyright &copy; <span id="ec-year"></span><a class="text-primary"
+							href="https://themeforest.net/user/ashishmaraviya" target="_blank"> ekka Admin
+							Dashboard</a>. All Rights Reserved.
+					</p>
+				</div>
+			</footer>
+			
+		</div> <!-- End Content -->
+	</div> <!-- End Content Wrapper -->
+
+
+
+{% endblock main-content %}

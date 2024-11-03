@@ -1,0 +1,162 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+
+ 
+
+    
+    
+    
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+
+    <!-- Background css -->
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+
+
+    <!-- Ec login page -->
+    <section class="ec-page-content section-space-p">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="section-title">
+                        <h2 class="ec-bg-title">Log In</h2>
+                        <h2 class="ec-title">Log In</h2>
+                        <p class="sub-title mb-3">Best place to buy and sell digital products</p>
+                    </div>
+                </div>
+                <div class="ec-login-wrapper">
+                    <div class="ec-login-container">
+                        <div class="ec-login-form">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <span class="ec-login-wrap">
+                                    <label>Username</label>
+                                    <input type="text" name="username" placeholder="Enter you Username" required />
+                                </span>
+                                <span class="ec-login-wrap">
+                                    <label>Password*</label>
+                                    <input type="password" name="password" placeholder="Enter your password" required />
+                                </span>
+                                <span class="ec-login-wrap ec-login-fp">
+                                    <label><a href="{% url 'send_otp' %}">Forgot Password?</a></label>
+                                </span>
+                                <span class="ec-login-wrap ec-login-btn">
+                                    <button class="btn btn-primary" type="submit">Login</button>
+                                    <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock main-content %}

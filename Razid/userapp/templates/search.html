@@ -1,0 +1,273 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<script src="{% static 'js/myscript.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+
+ 
+
+    
+    
+    
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+   
+
+    <!-- Background css -->
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+<div class="container mt-8">
+
+ <!-- Ec breadcrumb start -->
+ <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <div class="row ec_breadcrumb_inner">
+                  <div class="col-md-6 col-sm-12">
+                      <h2 class="ec-breadcrumb-title">Shop</h2>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                      <!-- ec-breadcrumb-list start -->
+                      <ul class="ec-breadcrumb-list">
+                          <li class="ec-breadcrumb-item"><a href="{% url 'home_with_encrypted_name' encrypted_name=encoded_encrypted_name %}">Home</a></li>
+                          <li class="ec-breadcrumb-item active">Shop</li>
+                      </ul>
+                      <!-- ec-breadcrumb-list end -->
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Ec breadcrumb end -->
+<div class="shop-pro-content">
+  <div class="shop-pro-inner">
+      <div class="row">
+          {% if no_results_message %}
+              <p style="font-size: 24px; text-align: center; margin: 20px auto; color: #333;">
+                  {{ no_results_message }}
+              </p>
+          {% else %}
+              <!-- Display Categories -->
+              {% if Category %}
+              <div class="col-12">
+                  <h3>Products</h3>
+                  <div class="row">
+                      {% for prod in product %}
+                          <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                              <div class="ec-product-inner">
+                                  <div class="ec-pro-image-outer">
+                                      <div class="ec-pro-image">
+                                          <a href="{% url 'singleproduct' prod.encrypted_pro_id %}" class="image">
+                                              <img class="main-image" src="{{ prod.product_image.url }}"
+                                                   alt="Product" style="width: 500px; height: 410px;" />
+                                              <img class="hover-image" src="{{ prod.product_image.url }}"
+                                                   alt="Product" style="width: 500px; height: 410px;" />
+                                          </a>
+                                          <span class="percentage">20%</span>
+                                          <div class="ec-pro-actions">
+                                              <!-- Add any action buttons here -->
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="ec-pro-content">
+                                      <h5 class="ec-pro-title"><a href="{% url 'singleproduct' prod.encrypted_pro_id %}">{{ prod.title }}</a></h5>
+                                      <div class="ec-pro-list-desc">{{ prod.description }}</div>
+                                      <span class="ec-price">
+                                          <span class="new-price">Rs.{{ prod.price }}</span>
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                      {% endfor %}
+                  </div>
+              </div>
+          {% endif %}
+      
+              <!-- Display Subcategories -->
+              {% if SubCate %}
+              <div class="col-12">
+                  <h3>Products</h3>
+                  <div class="row">
+                      {% for prod in product %}
+                          <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                              <div class="ec-product-inner">
+                                  <div class="ec-pro-image-outer">
+                                      <div class="ec-pro-image">
+                                          <a href="{% url 'singleproduct' prod.encrypted_pro_id %}" class="image">
+                                              <img class="main-image" src="{{ prod.product_image.url }}"
+                                                   alt="Product" style="width: 500px; height: 410px;" />
+                                              <img class="hover-image" src="{{ prod.product_image.url }}"
+                                                   alt="Product" style="width: 500px; height: 410px;" />
+                                          </a>
+                                          <span class="percentage">20%</span>
+                                          <div class="ec-pro-actions">
+                                              <!-- Add any action buttons here -->
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="ec-pro-content">
+                                      <h5 class="ec-pro-title"><a href="{% url 'singleproduct' prod.encrypted_pro_id %}">{{ prod.title }}</a></h5>
+                                      <div class="ec-pro-list-desc">{{ prod.description }}</div>
+                                      <span class="ec-price">
+                                          <span class="new-price">Rs.{{ prod.price }}</span>
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                      {% endfor %}
+                  </div>
+              </div>
+          {% endif %}
+      
+
+              <!-- Display Products -->
+              {% if product %}
+                  <div class="col-12">
+                      <h3>Products</h3>
+                      <div class="row">
+                          {% for prod in product %}
+                              <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                  <div class="ec-product-inner">
+                                      <div class="ec-pro-image-outer">
+                                          <div class="ec-pro-image">
+                                              <a href="{% url 'singleproduct' prod.encrypted_pro_id %}" class="image">
+                                                  <img class="main-image" src="{{ prod.product_image.url }}"
+                                                       alt="Product" style="width: 500px; height: 410px;" />
+                                                  <img class="hover-image" src="{{ prod.product_image.url }}"
+                                                       alt="Product" style="width: 500px; height: 410px;" />
+                                              </a>
+                                              <span class="percentage">20%</span>
+                                              <div class="ec-pro-actions">
+                                                  <!-- Add any action buttons here -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="ec-pro-content">
+                                          <h5 class="ec-pro-title"><a href="{% url 'singleproduct' prod.encrypted_pro_id %}">{{ prod.title }}</a></h5>
+                                          <div class="ec-pro-list-desc">{{ prod.description }}</div>
+                                          <span class="ec-price">
+                                              <span class="new-price">Rs.{{ prod.price }}</span>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+              {% endif %}
+          {% endif %}
+      </div>
+  </div>
+</div>
+
+
+
+{% endblock main-content %}

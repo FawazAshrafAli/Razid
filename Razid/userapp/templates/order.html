@@ -1,0 +1,228 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<script src="{% static 'js/myscript.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+
+ 
+
+    
+    
+    
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+   
+
+    <!-- Background css -->
+
+ <style>
+        /* Basic CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .ordered-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .item-details {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .item-details img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+        .item-description {
+            flex: 1;
+        }
+        .item-quantity {
+            margin-right: 20px;
+        }
+        .item-price {
+            font-weight: bold;
+        }
+    </style>
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+
+<div class="container mt-4">
+    {% if order_placed %}
+    <div class="row">
+        <!-- Sidebar -->
+        <!-- 
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="d-grid"><a href="{% url 'orders' %}" class="btn btn-dark">Orders</a></li>
+            </ul>
+        </div>
+        -->
+
+        <!-- Main Content -->
+        <div class="col-sm-10">
+            {% for op in order_placed %}
+            <div class="row mb-4">
+                <!-- Product Details -->
+                <div class="col-sm-7">
+                    <p class="fw-bold">Product: {{ op.product.title }}</p>
+                    <p>Quantity: {{ op.quantity }}</p>
+                    <p>Price: {{ op.product.price }}</p>
+                </div>
+
+                <!-- Product Image -->
+                <div class="col-sm-2">
+                    <img src="{{ op.product.product_image.url }}" class="img-fluid" width="100" height="100" alt="{{ op.product.title }}">
+                </div>
+
+                <!-- Order Status -->
+                <div class="col-sm-3">
+                    <p class="fw-bold">Order Status: {{ op.status }}</p>
+                    {% if op.status == 'Accepted' %}
+                    <!-- Progress Bar for Accepted Status -->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    {% elif op.status == 'Packed' %}
+                    <!-- Progress Bar for Packed Status -->
+                    <div class="progress">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <!-- Similar blocks for other status -->
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-3">
+            <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+              <h3>No orders placed yet.</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+</div>
+
+
+{% endblock main-content %}

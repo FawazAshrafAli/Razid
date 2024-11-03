@@ -1,0 +1,368 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+
+ 
+
+    
+    
+    
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+
+    <!-- Background css -->
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+
+
+  
+<div class="container">
+    {% if messages %}
+       {% for msg in messages %}
+         <div class="alert alert-danger" role="alert">
+            {{msg}}
+         </div>
+       {% endfor %}
+    {% endif %}
+
+     <div class="row mt-5">
+        <div class="col-sm-6">
+            <h4>Order Summary</h4>
+            <hr>
+            {% for item in cart_items %}
+            <div class="card mb-2">
+                <div class="card-body" style="display: flex; align-items: center;">
+                    <div style="flex: 1;">
+                        <h5>Product: {{ item.product.title }}</h5>
+                        <p>Quantity: {{ item.quantity }}</p>
+                        <p class="fw-bold">Price: {{ item.product.price }}</p>
+                    </div>
+                    <div style="margin-left: auto;">
+                        <img src="{{ item.product.product_image.url }}" style="width: 100px; height: 100px;">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- <p class="fw-bold">Total Cost + Rs. 40 = {{totalamount}}</p> -->
+            <div class="ec-checkout-summary" style="border: 1px solid #ccc; padding: 10px; ">
+              <div>
+                  <span class="text-left">Sub-Total</span>
+                  <span class="text-right">Rs. {{famount}}</span>
+              </div>
+              <div>
+                  <span class="text-left">Delivery Charges</span>
+                  <span class="text-right">Rs.40</span>
+              </div>
+              <div>
+                <span class="text-left">GST (taxes)</span>
+                <span class="text-right">10%</span>
+            </div>
+              <!-- <div>
+                  <span class="text-left">Coupan Discount</span>
+                  <span class="text-right"><a class="ec-checkout-coupan">Apply Coupan</a></span>
+              </div>
+              <div class="ec-checkout-coupan-content">
+                  <form class="ec-checkout-coupan-form" name="ec-checkout-coupan-form"
+                      method="post" action="#">
+                      <input class="ec-coupan" type="text" required=""
+                          placeholder="Enter Your Coupan Code" name="ec-coupan" value="">
+                      <button class="ec-coupan-btn button btn-primary" type="submit"
+                          name="subscribe" value="">Apply</button>
+                  </form>
+              </div> -->
+              <div class="ec-checkout-summary-total">
+                  <span class="text-left">Total Amount</span>
+                  <span class="text-right">Rs. {{totalamount}}</span>
+              </div>
+          </div>
+          
+        </div>
+        <div class="col-sm-4 offset-sm-1">
+          <h4>Select Shipping Address</h4>
+          <hr>
+          <form method="post" id="myform">
+              {% csrf_token %}
+              {% for ad in add %}
+              <div class="card">
+                  <div class="card-body">
+                      <h5>{{ ad.address1 }}</h5>
+                      <div class="form-check mt-2 mb-1">
+                          <input class="form-check-input" type="radio" name="cust" id="custadd{{ forloop.counter }}_1" value="{{ ad.address1 }}" required>
+                          <label class="form-check-label fw-bold" for="custadd{{ forloop.counter }}_1">
+                              Address:{{ forloop.counter }}-1
+                          </label>
+                      </div>
+      
+                      <h5>{{ ad.address2 }}</h5>
+                      <div class="form-check mt-2 mb-1">
+                          <input class="form-check-input" type="radio" name="cust" id="custadd{{ forloop.counter }}_2" value="{{ ad.address2 }}" required>
+                          <label class="form-check-label fw-bold" for="custadd{{ forloop.counter }}_2">
+                              Address:{{ forloop.counter }}-2
+                          </label>
+                      </div>
+      
+                      <h5>{{ ad.address3 }}</h5>
+                      <div class="form-check mt-2 mb-5">
+                          <input class="form-check-input" type="radio" name="cust" id="custadd{{ forloop.counter }}_3" value="{{ ad.address3 }}" required>
+                          <label class="form-check-label fw-bold" for="custadd{{ forloop.counter }}_3">
+                              Address:{{ forloop.counter }}-3
+                          </label>
+                      </div>
+                      <div>
+                        <input class="form-check-input" type="hidden" name="custid" id="custadd{{forloop.counter}}" value="{{ad.id}}">
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+              <div>
+                  <input type="hidden" name="totamount" value="{{ totalamount }}">
+              </div>
+              {% for item in cart_items %}
+              <input type="hidden" name="product_ids[]" value="{{ item.product.id }}">
+              <input type="hidden" name="quantities[]" value="{{ item.quantity }}">
+              {% endfor %}
+              <div class="text-end">
+                  <!-- <button id="rzp-button1" name="paid" type="submit" class="btn btn-primary mt-3 px-5 fw-bold">Online Payment</button> -->
+                  <button id="easebuzz-button" type="button" class="btn btn-primary mt-3 px-5 fw-bold">Online Payment</button>
+                  <button type="submit" name="cod" class="btn btn-primary mt-3 px-5 fw-bold">Cash on Delivery</button>
+              </div>
+              <br/><br/>
+          </form>
+      </div>
+      
+     </div>
+
+</div>
+  <!-- <script src="https//checkout.razorpay.com/v1/checkout.js"></script> -->
+  <script>
+    document.getElementById('easebuzz-button').onclick = function(e){
+        document.getElementById('myform').action = "{{ easebuzz_url }}";
+        document.getElementById('myform').submit();
+    }
+    </script>
+
+{% endblock main-content %}
+
+
+
+{% block payment-gateway %}
+
+
+<!-- <script src="https//checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  var options = {
+    "key": "rzp_test_QOX3KP4iASs3Ve",
+    "amount": "{{razoramount}}",
+    "currency": "INR",
+    "name": "Razid ecommerce site",
+    "description": "Purchase Product",
+    "order_id": "{{order_id}}",
+    "handler": function (response) {
+        console.log("success");
+        var form = document.getElementById("myform");
+        var custidValue = form.elements["custid"].value;
+        var redirectTo = 'http://localhost:8000/paymentdone?order_id=' + response.razorpay_order_id + '&payment_id=' + response.razorpay_payment_id + '&cust_id=' + custidValue;
+        
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response) {
+    alert(response.error.description);
+});
+document.getElementById('rzp-button1').onclick = function (e) {
+    rzp1.open();
+    e.preventDefault();
+}
+
+</script> -->
+
+<!-- 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_QOX3KP4iASs3Ve", // Enter the Key ID generated from the Dashboard
+    "amount": "{{razoramount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Razid ecommerce sitep", //your business name
+    "description": "purchase",
+    "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "http://localhost:8000/paymentdone?order_id=' + response.razorpay_order_id + '&payment_id=' + response.razorpay_payment_id + '&cust_id=' + custidValue/",
+    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+        "name": "Gaurav Kumar", //your customer's name
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"     
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response) {
+    alert(response.error.description);
+});
+
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script> -->
+<!-- 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_QOX3KP4iASs3Ve", // Enter the Key ID generated from the Dashboard
+    "amount": "{{razoramount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Razid ecommerce sitep", //your business name
+    "description": "Test Transaction",
+    "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+        console.log("success");
+        var form = document.getElementById("myform");
+        var custidValue = form.elements["custid"].value;
+        var redirectTo = 'http://localhost:8000/paymentdone?order_id=' + response.razorpay_order_id + '&payment_id=' + response.razorpay_payment_id + '&cust_id=' + custidValue;
+        
+    },
+    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+        "name": "Gaurav Kumar", //your customer's name
+        "email": "gaurav.kumar@example.com", 
+        "contact": "9000090000"  //Provide the customer's phone number for better conversion rates 
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+// rzp1.on('payment.failed', function (response){
+//         alert(response.error.code);
+//         alert(response.error.description);
+//         alert(response.error.source);
+//         alert(response.error.step);
+//         alert(response.error.reason);
+//         alert(response.error.metadata.order_id);
+//         alert(response.error.metadata.payment_id);
+// });
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script> -->
+{% endblock payment-gateway %}

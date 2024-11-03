@@ -1,0 +1,242 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Online Printing Services in India | RAZID Solutions",
+  "url": "https://razid.in/",
+  "logo": "https://razid.in/assets/images/logo/logo.png",
+  "sameAs": [
+    "https://www.facebook.com/Razidsolutions/",
+    "https://twitter.com/RazidSolutions",
+    "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+    "https://www.instagram.com/razidsolutions/",
+    "https://in.pinterest.com/RazidSolutions/"
+  ],
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+91-9447-574-488",
+      "contactType": "Customer Service",
+      "contactOption": "TollFree",
+      "areaServed": "IN"
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+91-9447-574-488",
+      "contactType": "Technical Support",
+      "contactOption": "TollFree",
+      "areaServed": "IN"
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+91-9447-574-488",
+      "contactType": "Sales",
+      "contactOption": "TollFree",
+      "areaServed": "IN"
+    }
+  ]
+}
+</script>
+
+<!-- site Favicon -->
+<link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+<link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+<meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+<!-- css Icon Font -->
+<link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+<!-- css All Plugins Files -->
+<link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+<link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+<link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+<link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+<link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+
+<!-- Background css -->
+{% endblock %}
+
+{% block main-content %}
+
+
+
+
+  <!-- Ec breadcrumb start -->
+  <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row ec_breadcrumb_inner">
+                    <div class="col-md-6 col-sm-12">
+                        <h2 class="ec-breadcrumb-title">Shop</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <!-- ec-breadcrumb-list start -->
+                        <ul class="ec-breadcrumb-list">
+                            <li class="ec-breadcrumb-item"><a href="/user/{{ 'home'|encrypt }}/">Home</a></li>
+                            <li class="ec-breadcrumb-item active">Shop</li>
+                        </ul>
+                        <!-- ec-breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ec breadcrumb end -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="text-center">OTP Verification</h1>
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <form id="otpForm" method="post">
+        {% csrf_token %}
+        <label for="otp" class="form-label">Enter OTP:</label>
+        <input type="text" id="otp" name="otp" class="form-control" required>
+        <button type="submit" class="btn btn-primary mt-3">Submit OTP</button>
+      </form>
+      <div id="timerSection">
+        <p>Resend OTP in <span id="timer">60</span> seconds</p>
+        <button id="resendButton" class="btn btn-secondary mt-3" style="display: none;">Resend OTP</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Countdown timer function
+ function startTimer(duration, display) {
+   var timer = duration, minutes, seconds;
+   var intervalId = setInterval(function () {
+     minutes = parseInt(timer / 60, 10);
+     seconds = parseInt(timer % 60, 10);
+ 
+     minutes = minutes < 10 ? "0" + minutes : minutes;
+     seconds = seconds < 10 ? "0" + seconds : seconds;
+ 
+     display.textContent = minutes + ":" + seconds;
+ 
+     console.log("Timer: ", minutes, seconds);
+ 
+     if (--timer <= 0) { // Modified condition to include when timer is 0 or less
+       clearInterval(intervalId); // Stop the timer
+       // Hide the timer
+       console.log("Timer expired!");
+       // Check if resend button should be displayed
+       var resendButton = document.getElementById("resendButton");
+       console.log("Should display resend button:", shouldDisplayResendButton(timer)); // Pass the timer value
+       if (shouldDisplayResendButton(timer)) { // Define your condition for displaying the resend button
+         resendButton.style.display = "block";
+         console.log("Resend button displayed.");
+       } else {
+         console.log("Resend button not displayed.");
+       }
+     }
+     
+   }, 1000);
+ }
+ 
+ window.onload = function () {
+   var duration = 60, // Set timer duration here (reduced for testing)
+       display = document.querySelector('#timer');
+   startTimer(duration, display);
+ };
+
+
+ document.getElementById("resendButton").addEventListener("click", function(event) {
+  event.preventDefault();
+  resendOTP();
+});
+
+function resendOTP() {
+  var email = localStorage.getItem("user_email");
+  console.log(email);
+
+  $.ajax({
+      url: "{% url 'resend_otp' %}",
+      type: 'POST',
+      headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+      },
+      contentType: 'application/json',
+      data: JSON.stringify({ email: email }),
+      success: function(response) {
+          console.log("New OTP sent successfully.");
+          alert("New OTP has been sent to your email.");
+          // Process response data if needed
+      },
+      error: function(xhr, status, error) {
+          console.error('Error:', error);
+          alert("Failed to send OTP. Please try again.");
+      }
+  });
+}
+
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+ 
+ // Function to determine whether the resend button should be displayed
+ function shouldDisplayResendButton(timer) {
+   // Return true if the timer has expired
+   return timer <= 0;
+ }
+ </script>
+{% endblock main-content %}

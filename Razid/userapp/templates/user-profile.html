@@ -1,0 +1,233 @@
+{% extends 'base2.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+
+ 
+
+    
+    
+    
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+
+    <!-- Background css -->
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+
+
+
+
+<section class="ec-page-content ec-vendor-uploads ec-user-account section-space-p">
+    <!-- User profile section -->
+         <div class="container">
+             <div class="row">
+                 <!-- Sidebar Area Start -->
+                 <div class="ec-shop-leftside ec-vendor-sidebar col-lg-3 col-md-12">
+                     <div class="ec-sidebar-wrap ec-border-box">
+                         <!-- Sidebar Category Block -->
+                         <div class="ec-sidebar-block">
+                             <div class="ec-vendor-block">
+                                 <!-- <div class="ec-vendor-block-bg"></div>
+                                 <div class="ec-vendor-block-detail">
+                                     <img class="v-img" src="assets/images/user/1.jpg" alt="vendor image">
+                                     <h5>Mariana Johns</h5>
+                                 </div> -->
+                                 <div class="ec-vendor-block-items">
+                                     <ul>
+                                         
+                                         <li><a href="{% url 'orders' %}">My orders</a></li>
+                                         <li><a href="{% url 'wishlist' %}">Wishlist</a></li>
+                                         <li><a href="{% url 'showcart' %}">Cart</a></li>
+                                         <li><a href="{% url 'trackorder'  %}">Track Order</a></li>
+                                         <li><a href="{% url 'orderhistory'  %}">order history</a></li>
+
+                                         <li><a href="{% url 'invoice' %}">Invoice</a></li>
+
+                                         
+                                     </ul>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="ec-shop-rightside col-lg-9 col-md-12">
+                     <div class="ec-vendor-dashboard-card ec-vendor-setting-card">
+                         <div class="ec-vendor-card-body">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                     <div class="ec-vendor-block-profile">
+                                         <div class="ec-vendor-block-img space-bottom-30">
+                                             <!-- <div class="ec-vendor-block-bg">
+                                                 <a href="#" class="btn btn-lg btn-primary"
+                                                     data-link-action="editmodal" title="Edit Detail"
+                                                     data-bs-toggle="modal" data-bs-target="#edit_modal">Edit Detail</a>
+                                             </div> -->
+                                             <!-- <div class="ec-vendor-block-detail">
+                                                 <img class="v-img" src="assets/images/user/1.jpg" alt="vendor image">
+                                                 <h5<p>( Business Man )</p>
+                                             </div> class="name">{{request.user}}</h5> -->
+                                                 
+                                             <!-- <p>Hello <span>{{request.user}}</span></p>
+                                             <p>From your account you can easily view and track orders. You can manage and change your account information like address, contact information and history of orders.</p>
+                                         </div> -->
+                                         <h5>Add Information</h5>
+                                        <!-- start -->
+                                         <div class="container my-5">
+                                            <div class="row">
+                                                
+                                            
+                                            <div class="col-sm-2 border-end">
+                                                <ul class="list-unstyled">
+                                                    <li class="d-grid"><a href="{% url 'profile' %}" class="btn btn-dark">Profile</a></li>
+                                                    <li class="d-grid"><a href="{% url 'address' %}" class="btn">Address</a></li>
+                                                </ul>
+                                            </div>
+                                        
+                                            <div class="col-sm-8 offset-sm-1">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                     {% for fm in form %}
+                                                        {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small><br>
+                                                    {% endfor %} 
+                                                    {% comment %} {% crispy form %} {% endcomment %}
+                                                    <div class="col-12 mt-3">
+                                                        <button type="submit" class="btn btn-dark">Submit</button>
+                                                    </div>
+                                                    {% if form.non_field_errors %}
+                                                        {% for error in form.non_field_errors %}
+                                                        <p class="alert alert-danger my-3">{{error}}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                        
+                                        
+                                                    {% if messages %}
+                                                       {% for msg in messages %}
+                                                          <div class="alert alert-{{msg.tags}}" role="alert">
+                                                            {{msg}}
+                                                          </div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <!-- stop -->
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </section>
+     <!-- End User profile section -->
+
+
+{% endblock main-content %}

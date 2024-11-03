@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+{% load custom_filters %}
+
+<html>
+<head>
+    <title>Invoice</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 100%; margin: 0 auto; }
+        .header, .footer { background-color: #f8f8f8; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .invoice-details { margin: 20px 0; }
+        .invoice-details th, .invoice-details td { padding: 10px; border: 1px solid #ddd; }
+        .invoice-details th { background-color: #f2f2f2; }
+        .total { font-size: 1.2em; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Invoice</h1>
+            <img src="{% static 'images/logo/logo.png' %}" alt="Site Logo">
+        </div>
+        <div class="content">
+            <h2>Invoice Details</h2>
+            <p>Thank you for your purchase!</p>
+            <div class="invoice-details">
+                <table>
+                    <tr>
+                        <th>To:</th>
+                        <td>{{ order.customer.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td>{{ order.customer.locality }}, {{ order.customer.city }}, {{ order.customer.state }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone:</th>
+                        <td>{{ order.customer.mobile }}</td>
+                    </tr>
+                    <tr>
+                        <th>Order ID:</th>
+                        <td>#{{ orders.order_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Issue Date:</th>
+                        <td>{{ order.ordered_date }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="invoice-items">
+                <h3>Items</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for j in orders %}
+                        {% if j.order_id == order.id %}
+                        <tr>
+                            <td>#{{ j.order_id }}</td>
+                            <td>{{ j.product.title }}</td>
+                            <td>{{ j.quantity }}</td>
+                            <td>Rs.{{ j.product.price }}</td>
+                            <td>Rs.{{ j.amount }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        {% comment %} <tr>
+                            <td colspan="3"></td>
+                            <td><strong>Sub Total</strong></td>
+                            <td>Rs.{{ subtotal }}</td>
+                        </tr> {% endcomment %}
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><strong>Tax (10%)</strong></td>
+                            <td>Rs.{{ tax_amount }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><strong>Total</strong></td>
+                            <td class="total">Rs.{{ totalamount }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <p>If you have any questions about your order, feel free to contact us.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

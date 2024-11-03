@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<!-- PLUGINS CSS STYLE -->
+<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/simplebar/simplebar.css' %}" rel="stylesheet" />
+
+<!-- ekka CSS -->
+<link id="ekka-css" href="{% static 'css/ekka.css' %}" rel="stylesheet" />
+
+<!-- FAVICON -->
+<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+{% endblock %}
+
+
+{% block main-content %}
+
+ <div class="search-form d-lg-inline-block ml-6 mt-6"  style="max-width: 500px;">
+						<form action="{% url 'search_admin' %}" method="get">
+							<div class="input-group">
+								<input type="text" name="query" id="search-input" class="form-control"
+									   placeholder="search.." autofocus autocomplete="off" />
+								<button type="submit" class="btn btn-flat">
+									<i class="mdi mdi-magnify"></i>
+								</button>
+							</div>
+						</form>
+						<div id="search-results-container">
+							<ul id="search-results"></ul>
+						</div>
+					</div> 
+
+
+	<!-- CONTENT WRAPPER -->
+    <div class="ec-content-wrapper">
+        <div class="content">
+            <div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+                <h1>Order Detail</h1>
+                <p class="breadcrumbs"><span><a href="{% url 'adminhome' %}">Home</a></span>
+                    <span><i class="mdi mdi-chevron-right"></i></span>Orders
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="ec-odr-dtl card card-default">
+                        <div class="card-header card-header-border-bottom d-flex justify-content-between">
+                            <h2 class="ec-odr">Order Detail<br>
+                                <span class="small">Order ID: #{{detail.order_id}}</span>
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-6">
+                                    <address class="info-grid">
+                                        <div class="info-title"><strong>Customer:</strong></div><br>
+                                        <div class="info-content">
+                                            {{detail.user}}<br>
+                                            {{detail.user.email}}<br>
+                                            <br>
+                                            {% comment %} <abbr title="Phone">P:</abbr> (123) 456-7890 {% endcomment %}
+                                        </div>
+                                    </address>
+                                </div>
+                                <div class="col-xl-3 col-lg-6">
+                                    <address class="info-grid">
+                                        <div class="info-title"><strong>Shipped To:</strong></div><br>
+                                        <div class="info-content">
+                                            {{detail.customer.name}}<br>
+                                            {{detail.customer.locality}},{{detail.customer.locality}},{{detail.customer.city}},{{detail.customer.state}},{{detail.customer.zipcode}}<br>
+                                            <br>
+                                            <abbr title="Phone">Phone:</abbr> {{detail.customer.mobile}}
+                                        </div>
+                                    </address>
+                                </div>
+                                <div class="col-xl-3 col-lg-6">
+                                    <address class="info-grid">
+                                        <div class="info-title"><strong>Payment Method:</strong></div><br>
+                                        <div class="info-content">
+                                            {{detail.payment_method}}<br>
+                                            {{detail.emil}}<br>
+                                        </div>
+                                    </address>
+                                </div>
+                                <div class="col-xl-3 col-lg-6">
+                                    <address class="info-grid">
+                                        <div class="info-title"><strong>Order Date:</strong></div><br>
+                                        <div class="info-content">
+                                            {% comment %} 4:34PM,<br> {% endcomment %}
+                                            {{detail.ordered_date}}
+                                        </div>
+                                    </address>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="tbl-title">PRODUCT SUMMARY</h3>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped o-tbl">
+                                            <thead>
+                                                <tr class="line">
+                                                    <td><strong>#</strong></td>
+                                                    <td class="text-center"><strong>IMAGE</strong></td>
+                                                    <td class="text-center"><strong>PRODUCT</strong></td>
+                                                    <td class="text-center"><strong>PRICE/UNIT</strong></td>
+                                                    <td class="text-right"><strong>QUANTITY</strong></td>
+                                                    <td class="text-right"><strong>SUBTOTAL</strong></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i in details %}
+                                                {% if i.order_id ==  detail.id %}
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><img class="product-img" src="{{ i.product.product_image.url }}" alt="" /></td>
+                                                    <td><strong>{{ i.product.name }}</strong><br>{{ i.product.description }}</td>
+                                                    <td class="text-center">{{ i.product.price }}</td>
+                                                    <td class="text-center">{{ i.quantity }}</td>
+                                                    <td class="text-right">{{ detail.amount }}</td>
+                                                </tr>
+                                                {% endif %}
+                                               {% endfor %}
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tracking Detail -->
+                    <div class="card mt-4 trk-order">
+                        <div class="p-4 text-center text-white text-lg bg-dark rounded-top">
+                            <span class="text-uppercase">Tracking Order No - </span>
+                            <span class="text-medium">{{detail.order_id}}</span>
+                        </div>
+                        <div
+                            class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
+                            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Shipped
+                                    Via:</span> UPS Ground</div>
+                            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span>
+                                Checking Quality</div>
+                            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Expected
+                                    Date:</span>{{detail.delivery_expected_date}}</div>
+                        </div>
+                        <div class="card-body">
+                            <div
+                                class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+                                <div class="step {% if detail.status == 'Pending' or detail.status == 'Processing' or detail.status == 'Shipped' or detail.status == 'Enroute' or detail.status == 'Delivered' %} completed {% endif %}">
+                                    <div class="step-icon-wrap">
+                                        <div class="step-icon"><i class="mdi mdi-cart"></i></div>
+                                    </div>
+                                    <h4 class="step-title">Pending</h4>
+                                </div>
+                                <div class="step {% if detail.status == 'Processing' or detail.status == 'Shipped' or detail.status == 'Enroute' or detail.status == 'Delivered' %} completed {% endif %}">
+                                    <div class="step-icon-wrap">
+                                        <div class="step-icon"><i class="mdi mdi-tumblr-reblog"></i></div>
+                                    </div>
+                                    <h4 class="step-title">Processing </h4>
+                                </div>
+                                <div class="step {% if detail.status == 'Shipped' or detail.status == 'Enroute' or detail.status == 'Delivered' %} completed {% endif %}">
+                                    <div class="step-icon-wrap">
+                                        <div class="step-icon"><i class="mdi mdi-gift"></i></div>
+                                    </div>
+                                    <h4 class="step-title">Shipped</h4>
+                                </div>
+                                <div class="step {% if detail.status == 'Enroute'  %} completed {% endif %}">
+                                    <div class="step-icon-wrap">
+                                        <div class="step-icon"><i class="mdi mdi-truck-delivery"></i></div>
+                                    </div>
+                                    <h4 class="step-title">Enroute</h4>
+                                </div>
+                                <div class="step {% if detail.status == 'Delivered' %} completed {% endif %}">
+                                    <div class="step-icon-wrap">
+                                        <div class="step-icon"><i class="mdi mdi-hail"></i></div>
+                                    </div>
+                                    <h4 class="step-title"> Delivered</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Content -->
+    </div> <!-- End Content Wrapper -->
+
+
+
+
+ {% endblock main-content %}

@@ -1,0 +1,688 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<!-- PLUGINS CSS STYLE -->
+<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/simplebar/simplebar.css' %}" rel="stylesheet" />
+
+<!-- ekka CSS -->
+<link id="ekka-css" href="{% static 'css/ekka.css' %}" rel="stylesheet" />
+
+<!-- FAVICON -->
+<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+{% endblock %}
+
+
+{% block main-content %}
+
+
+
+			<!-- CONTENT WRAPPER -->
+			<div class="ec-content-wrapper">
+				<div class="content">
+					<!-- Top Statistics -->
+					<div class="row">
+						<div class="col-xl-3 col-sm-6 p-b-15 lbl-card">
+							<div class="card card-mini dash-card card-1">
+								<div class="card-body">
+									<h2 class="mb-1">{{ daily_signups_count }}</h2>
+									<p>Daily Signups</p>
+									<span class="mdi mdi-account-arrow-left"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6 p-b-15 lbl-card">
+							<div class="card card-mini dash-card card-2">
+								<div class="card-body">
+									<h2 class="mb-1">{{ daily_visitors_count }}</h2>
+									<p>Daily Visitors</p>
+									<span class="mdi mdi-account-clock"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6 p-b-15 lbl-card">
+							<div class="card card-mini dash-card card-3">
+								<div class="card-body">
+									<h2 class="mb-1">{{ daily_order_count }}</h2>
+									<p>Daily Order</p>
+									<span class="mdi mdi-package-variant"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6 p-b-15 lbl-card">
+							<div class="card card-mini dash-card card-4">
+								<div class="card-body">
+									<h2 class="mb-1">Rs.{{ daily_revenue|floatformat:2 }}</h2>
+									<p>Daily Revenue</p>
+									<span class="mdi mdi-currency-usd"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xl-8 col-md-12 p-b-15">
+							<!-- Sales Graph -->
+							<div id="user-acquisition" class="card card-default">
+								<div class="card-header">
+									<h2>Sales Report</h2>
+								</div>
+								<div class="card-body">
+									<ul class="nav nav-tabs nav-style-border justify-content-between justify-content-lg-start border-bottom"
+										role="tablist">
+										<li class="nav-item">
+											<a class="nav-link active" data-bs-toggle="tab" href="#todays" role="tab"
+												aria-selected="true">Today's</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-bs-toggle="tab" href="#monthly" role="tab"
+												aria-selected="false">Monthly </a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-bs-toggle="tab" href="#yearly" role="tab"
+												aria-selected="false">Yearly</a>
+										</li>
+									</ul>
+									<div class="tab-content pt-4" id="salesReport">
+										<div class="tab-pane fade show active" id="source-medium" role="tabpanel">
+											<div class="mb-6" style="max-height:247px">
+												<canvas id="acquisition" class="chartjs2"></canvas>
+												<div id="acqLegend" class="customLegend mb-2"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xl-4 col-md-12 p-b-15">
+							<!-- Doughnut Chart -->
+							<div class="card card-default">
+								<div class="card-header justify-content-center">
+									<h2>Orders Overview</h2>
+								</div>
+								<div class="card-body">
+									<canvas id="doChart"></canvas>
+								</div>
+								<a href="#" class="pb-5 d-block text-center text-muted"><i class="mdi mdi-download mr-2"></i> Download overall report</a>
+								<div class="card-footer d-flex flex-wrap bg-white p-0">
+									<div class="col-6">
+										<div class="p-20">
+											<ul class="d-flex flex-column justify-content-between">
+												<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2" style="color: #4c84ff"></i>Delivered</li>
+												<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2" style="color: #80e1c1 "></i>Processing</li>
+												<li><i class="mdi mdi-checkbox-blank-circle-outline mr-2" style="color: #ff7b7b "></i>Shipped</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-6 border-left">
+										<div class="p-20">
+											<ul class="d-flex flex-column justify-content-between">
+												<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2" style="color: #8061ef"></i>Pending</li>
+												<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2" style="color: #ffa128"></i>Order Placed</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="row">
+						<div class="col-xl-8 col-md-12 p-b-15">
+							<!-- User activity statistics -->
+							<div class="card card-default" id="user-activity">
+								<div class="no-gutters">
+									<div>
+										<div class="card-header justify-content-between">
+											<h2>User Activity</h2>
+											<div class="date-range-report ">
+												<span></span>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="tab-content" id="userActivityContent"> 
+												<div class="tab-pane fade show active" id="user" role="tabpanel">
+													<canvas id="activity" class="chartjs"></canvas>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer d-flex flex-wrap bg-white border-top">
+											<a href="#" class="text-uppercase py-3">In-Detail Overview</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-md-12 p-b-15">
+							<div class="card card-default">
+								<div class="card-header flex-column align-items-start">
+									<h2>Current Users</h2>
+								</div>
+								<div class="card-body">
+									<canvas id="currentUser" class="chartjs"></canvas>
+								</div>
+								<div class="card-footer d-flex flex-wrap bg-white border-top">
+									<a href="#" class="text-uppercase py-3">In-Detail Overview</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xl-8 col-12 p-b-15">
+							<!-- World Chart -->
+							<div class="card card-default" id="analytics-country">
+								<div class="card-header justify-content-between">
+									<h2>Purchased by Country</h2>
+									<div class="date-range-report ">
+										<span></span>
+									</div>
+								</div>
+								<div class="card-body vector-map-world-2">
+									<div id="regions_purchase" style="height: 100%; width: 100%;"></div>
+								</div>
+								<div class="border-top mt-3">
+									<div class="row no-gutters">
+										<div class="col-lg-6">
+											<div class="world-data-chart border-bottom pt-15px pb-15px">
+												<canvas id="hbar1" class="chartjs"></canvas>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="world-data-chart pt-15px pb-15px">
+												<canvas id="hbar2" class="chartjs"></canvas>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer d-flex flex-wrap bg-white">
+									<a href="#" class="text-uppercase py-3">In-Detail Overview</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-12 p-b-15">
+							<!-- Top Sell Table -->
+							<div class="card card-default Sold-card-table">
+								<div class="card-header justify-content-between">
+									<h2>Sold by Items</h2>
+									<div class="tools">
+										<button class="text-black-50 mr-2 font-size-20"><i class="mdi mdi-cached"></i></button>
+										<div class="dropdown show d-inline-block widget-dropdown">
+											<a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdown-units" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li class="dropdown-item"><a href="#">Action</a></li>
+												<li class="dropdown-item"><a href="#">Another action</a></li>
+												<li class="dropdown-item"><a href="#">Something else here</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="card-body py-0 compact-units" data-simplebar style="height: 534px;">
+									<table class="table ">
+										<tbody>
+											{% for item in sold_items %}
+											<tr>
+												<td class="text-dark">{{ item.product__title }}</td>
+												<td class="text-center">{{ item.total_quantity }}</td>
+												<td class="text-right">
+													<!-- Assuming you calculate the percentage change -->
+													{{ item.percentage_change }}% <i class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i>
+												</td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+								<div class="card-footer d-flex flex-wrap bg-white">
+									<a href="#" class="text-uppercase py-3">View Report</a>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="row">
+						<div class="col-12 p-b-15">
+							<!-- Recent Order Table -->
+							<div class="card card-table-border-none card-default recent-orders" id="recent-orders">
+								<div class="card-header justify-content-between">
+									<h2>Recent Orders</h2>
+									<div class="date-range-report">
+										<span></span>
+									</div>
+								</div>
+								<div class="card-body pt-0 pb-5">
+									<table class="table card-table table-responsive table-responsive-large"
+										style="width:100%">
+										<thead>
+											<tr>
+												<th>Order ID</th>
+												<th>Product Name</th>
+												<th class="d-none d-lg-table-cell">Units</th>
+												<th class="d-none d-lg-table-cell">Order Date</th>
+												<th class="d-none d-lg-table-cell">Order Cost</th>
+												<th>Status</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for i in orders|slice:":4" %}
+		
+											
+														<tr>
+															<td>{{ i.order_id }}</td>
+															<td>
+																<a class="text-dark" href="">{{ j.product.title }}</a>
+															</td>
+															<td class="d-none d-lg-table-cell">{{ j.quantity }}</td>
+															<td class="d-none d-lg-table-cell">{{ i.ordered_date }}</td>
+															<td class="d-none d-lg-table-cell">{{ i.amount }}</td>
+															<td>
+																<span class="badge badge-success">{{ i.status }}</span>
+															</td>
+															<td class="text-right">
+																<div class="dropdown show d-inline-block widget-dropdown">
+																	<a class="dropdown-toggle icon-burger-mini" href=""
+																	   role="button" id="dropdown-recent-order1"
+																	   data-bs-toggle="dropdown" aria-haspopup="true"
+																	   aria-expanded="false" data-display="static"></a>
+																	<ul class="dropdown-menu dropdown-menu-right">
+																		<li class="dropdown-item">
+																			<a href="#">View</a>
+																		</li>
+																		<li class="dropdown-item">
+																			<a href="#">Remove</a>
+																		</li>
+																	</ul>
+																</div>
+															</td>
+														</tr>
+												
+											{% endfor %}
+										</tbody>
+										
+										
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xl-5">
+							<!-- New Customers -->
+							<div class="card ec-cust-card card-table-border-none card-default">
+								<div class="card-header justify-content-between ">
+									<h2>New Customers</h2>
+									<div>
+										<button class="text-black-50 mr-2 font-size-20">
+											<i class="mdi mdi-cached"></i>
+										</button>
+										<div class="dropdown show d-inline-block widget-dropdown">
+											<a class="dropdown-toggle icon-burger-mini" href="#" role="button"
+												id="dropdown-customar" data-bs-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false" data-display="static">
+											</a>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li class="dropdown-item"><a href="#">Action</a></li>
+												<li class="dropdown-item"><a href="#">Another action</a></li>
+												<li class="dropdown-item"><a href="#">Something else here</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="card-body pt-0 pb-15px">
+									<table class="table ">
+										<tbody>
+											{% for customer in last_six_customers %}
+											<tr>
+												<td>
+													<div class="media">
+														<div class="media-image mr-3 rounded-circle">
+															<i class="ri-user-line"></i>
+														</div>
+														<div class="media-body align-self-center">
+															<a href="profile.html">
+																<h6 class="mt-0 text-dark font-weight-medium">{{customer.username}}</h6>
+															</a>
+															<small>{{customer.email}}</small>
+														</div>
+													</div>
+												</td>
+												<td>{{ customer.order_count }} Orders</td>
+												<td class="text-dark d-none d-md-block">Rs.{{ customer.total_spent }}</td>
+											</tr>
+											{% endfor %}
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xl-7">
+							<!-- Top Products -->
+							<div class="card card-default ec-card-top-prod">
+								<div class="card-header justify-content-between">
+									<h2>Top Products</h2>
+									<div>
+										<button class="text-black-50 mr-2 font-size-20"><i
+												class="mdi mdi-cached"></i></button>
+										<div class="dropdown show d-inline-block widget-dropdown">
+											<a class="dropdown-toggle icon-burger-mini" href="#" role="button"
+												id="dropdown-product" data-bs-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false" data-display="static">
+											</a>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li class="dropdown-item"><a href="#">Update Data</a></li>
+												<li class="dropdown-item"><a href="#">Detailed Log</a></li>
+												<li class="dropdown-item"><a href="#">Statistics</a></li>
+												<li class="dropdown-item"><a href="#">Clear Data</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="card-body mt-10px mb-10px py-0">
+									{% for product in top_three_products %}
+									<div class="row media d-flex pt-15px pb-15px">
+										<div
+											class="col-lg-3 col-md-3 col-2 media-image align-self-center rounded">
+											<a href="#"><img src="{{product.product_image.url}}" alt="customer image" style="height:120px;width:120px;"></a>
+										</div>
+										<div class="col-lg-9 col-md-9 col-10 media-body align-self-center ec-pos">
+											<a href="#">
+												<h6 class="mb-10px text-dark font-weight-medium">{{product.title}}</h6>
+											</a>
+											<p class="float-md-right sale"><span class="mr-2">{{product.quantity}}</span>To Sale</p>
+											<p class="d-none d-md-block">{{product.description}}</p>
+											<p class="mb-0 ec-price">
+												<span class="text-dark">{{product.price}}</span>
+												{% comment %} <del>$580</del> {% endcomment %}
+											</p>
+										</div>
+									</div>
+									{% endfor %}
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- End Content -->
+			</div> <!-- End Content Wrapper -->
+
+		<!-- Include Chart.js -->
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var cUser = document.getElementById("currentUser");
+		if (cUser !== null) {
+			var signupData = {{ signup_data|safe }};  // Injecting dynamic data
+			
+			// Debugging: Print the data to the console to ensure it's correct
+			console.log(signupData);
+	
+			var myUChart = new Chart(cUser, {
+				type: "bar",
+				data: {
+					labels: Array.from({length: signupData.length}, (v, i) => (i + 1) + "d"),  // Labels for days of the month
+					datasets: [
+						{
+							label: "Signup",
+							data: signupData,
+							backgroundColor: "#88aaf3"
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					scales: {
+						xAxes: [
+							{
+								gridLines: {
+									drawBorder: true,
+									display: false,
+								},
+								ticks: {
+									fontColor: "#8a909d",
+									fontFamily: "Roboto, sans-serif",
+									display: false,
+									beginAtZero: true,
+									callback: function(tick, index, array) {
+										return index % 2 ? "" : tick;
+									}
+								},
+								barPercentage: 1.8,
+								categoryPercentage: 0.2
+							}
+						],
+						yAxes: [
+							{
+								gridLines: {
+									drawBorder: true,
+									display: true,
+									color: "#eee",
+									zeroLineColor: "#eee"
+								},
+								ticks: {
+									fontColor: "#8a909d",
+									fontFamily: "Roboto, sans-serif",
+									display: true,
+									beginAtZero: true
+								}
+							}
+						]
+					},
+					tooltips: {
+						mode: "index",
+						titleFontColor: "#888",
+						bodyFontColor: "#555",
+						titleFontSize: 12,
+						bodyFontSize: 15,
+						backgroundColor: "rgba(256,256,256,0.95)",
+						displayColors: true,
+						xPadding: 10,
+						yPadding: 7,
+						borderColor: "rgba(220, 220, 220, 0.9)",
+						borderWidth: 2,
+						caretSize: 6,
+						caretPadding: 5
+					}
+				}
+			});
+		}
+	});
+	</script>
+	
+	
+
+
+			<script>
+				var activityLabels = {{ labels|safe }};
+				var activeUserData = {{ active_users|safe }};
+				var inactiveUserData = {{ inactive_users|safe }};
+			  </script>
+			  
+			  <script>
+				var ctx = document.getElementById("activity").getContext("2d");
+				var myLine = new Chart(ctx, {
+				  type: "line",
+				  data: {
+					labels: activityLabels,
+					datasets: [
+					  {
+						label: "Active",
+						backgroundColor: "transparent",
+						borderColor: "rgba(82, 136, 255, .8)",
+						data: activeUserData,
+						lineTension: 0,
+						pointRadius: 5,
+						pointBackgroundColor: "rgba(255,255,255,1)",
+						pointHoverBackgroundColor: "rgba(255,255,255,1)",
+						pointBorderWidth: 2,
+						pointHoverRadius: 7,
+						pointHoverBorderWidth: 1
+					  },
+					  {
+						label: "Inactive",
+						backgroundColor: "transparent",
+						borderColor: "rgba(255, 199, 15, .8)",
+						data: inactiveUserData,
+						lineTension: 0,
+						borderDash: [10, 5],
+						borderWidth: 1,
+						pointRadius: 5,
+						pointBackgroundColor: "rgba(255,255,255,1)",
+						pointHoverBackgroundColor: "rgba(255,255,255,1)",
+						pointBorderWidth: 2,
+						pointHoverRadius: 7,
+						pointHoverBorderWidth: 1
+					  }
+					]
+				  },
+				  options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					legend: {
+					  display: false
+					},
+					scales: {
+					  xAxes: [
+						{
+						  gridLines: {
+							display: false,
+						  },
+						  ticks: {
+							fontColor: "#8a909d",
+						  },
+						}
+					  ],
+					  yAxes: [
+						{
+						  gridLines: {
+							display: true,
+							color: "#eee",
+							zeroLineColor: "#eee"
+						  },
+						  ticks: {
+							stepSize: 50,
+							fontColor: "#8a909d",
+							fontFamily: "Roboto, sans-serif"
+						  }
+						}
+					  ]
+					},
+					tooltips: {
+					  mode: "index",
+					  intersect: false,
+					  titleFontColor: "#888",
+					  bodyFontColor: "#555",
+					  titleFontSize: 12,
+					  bodyFontSize: 15,
+					  backgroundColor: "rgba(256,256,256,0.95)",
+					  displayColors: true,
+					  xPadding: 10,
+					  yPadding: 7,
+					  borderColor: "rgba(220, 220, 220, 0.9)",
+					  borderWidth: 2,
+					  caretSize: 6,
+					  caretPadding: 5
+					}
+				  }
+				});
+			  </script>
+
+			  <script>
+				var completedOrders = {{ completed_orders }};
+				var unpaidOrders = {{ unpaid_orders }};
+				var returnedOrders = {{ returned_orders }};
+				var pendingOrders = {{ pending_orders }};
+				var canceledOrders = {{ canceled_orders }};
+			  
+				var doChart = document.getElementById("doChart");
+				if (doChart !== null) {
+				  var myOrderChart = new Chart(doChart, {
+					type: "doughnut",
+					data: {
+					  labels: [
+						"Delivered",
+						"Processing",
+						"Shipped",
+						"Pending",
+						"Order Placed"
+					  ],
+					  datasets: [
+						{
+						  label: "Orders Overview",
+						  data: [completedOrders, unpaidOrders, returnedOrders, pendingOrders, canceledOrders],
+						  backgroundColor: [
+							"rgba(76, 132, 255, 1)",  // Delivered
+							"rgba(128, 225, 193, 1)",  // Processing
+							"rgba(255, 123, 123, 1)",  // Shipped
+							"rgba(128, 97, 239, 1)",   // Pending
+							"rgba(255, 161, 40, 1)"    // Order Placed
+						  ],
+						  borderWidth: 1
+						}
+					  ]
+					},
+					options: {
+					  responsive: true,
+					  maintainAspectRatio: false,
+					  legend: {
+						display: false
+					  },
+					  cutoutPercentage: 75,
+					  tooltips: {
+						callbacks: {
+						  title: function(tooltipItem, data) {
+							return data["labels"][tooltipItem[0]["index"]];
+						  },
+						  label: function(tooltipItem, data) {
+							return (
+							  data["datasets"][0]["data"][tooltipItem["index"]] + " Orders"
+							);
+						  }
+						},
+						titleFontColor: "#888",
+						bodyFontColor: "#555",
+						titleFontSize: 12,
+						bodyFontSize: 15,
+						backgroundColor: "rgba(256,256,256,0.95)",
+						displayColors: true,
+						xPadding: 10,
+						yPadding: 7,
+						borderColor: "rgba(220, 220, 220, 0.9)",
+						borderWidth: 2,
+						caretSize: 6,
+						caretPadding: 5
+					  }
+					}
+				  });
+				}
+			  </script>
+			  
+
+
+ {% endblock main-content %}

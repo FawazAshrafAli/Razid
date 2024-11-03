@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="RAZ ID Solutions - Admin">
+
+		<title>RAZ ID Solutions - Admin</title>
+		
+		<!-- GOOGLE FONTS -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+		<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+		
+		<!-- ekka CSS -->
+		<link id="ekka-css" rel="stylesheet" href="{% static 'css/ekka.css' %}" />
+		
+		<!-- FAVICON -->
+		<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+	</head>
+        
+    <body class="sign-inup" id="body">
+        <div class="container d-flex align-items-center justify-content-center form-height-login pt-24px pb-24px">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-primary">
+                            <div class="ec-brand">
+                                <a href="#" title="ekka">
+                                    <img class="ec-brand-icon" src="{% static 'img/logo/logo-login.png' %}" alt="" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body p-5">
+                            <h4 class="text-dark mb-5">OTP Verification</h4>
+
+                            {% if messages %}
+                            <ul class="messages">
+                              {% for message in messages %}
+                              <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                              {% endfor %}
+                            </ul>
+                            {% endif %}
+                            
+                            <form method="post" action="{% url 'otpverify' %}">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="form-group col-md-12 mb-4">
+                                        <input type="text" class="form-control" id="otp" placeholder="Enter OTP" name="otp" required>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">Submit OTP</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {% comment %} <div id="timerSection">
+                                <p>Resend OTP in <span id="timer">60</span> seconds</p>
+                                <button id="resendButton" class="btn btn-secondary mt-3" style="display: none;">Resend OTP</button>
+                              </div> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- Javascript -->
+
+        <script>
+            // Countdown timer function
+           function startTimer(duration, display) {
+             var timer = duration, minutes, seconds;
+             var intervalId = setInterval(function () {
+               minutes = parseInt(timer / 60, 10);
+               seconds = parseInt(timer % 60, 10);
+           
+               minutes = minutes < 10 ? "0" + minutes : minutes;
+               seconds = seconds < 10 ? "0" + seconds : seconds;
+           
+               display.textContent = minutes + ":" + seconds;
+           
+               console.log("Timer: ", minutes, seconds);
+           
+               if (--timer <= 0) { // Modified condition to include when timer is 0 or less
+                 clearInterval(intervalId); // Stop the timer
+                 // Hide the timer
+                 console.log("Timer expired!");
+                 // Check if resend button should be displayed
+                 var resendButton = document.getElementById("resendButton");
+                 console.log("Should display resend button:", shouldDisplayResendButton(timer)); // Pass the timer value
+                 if (shouldDisplayResendButton(timer)) { // Define your condition for displaying the resend button
+                   resendButton.style.display = "block";
+                   console.log("Resend button displayed.");
+                 } else {
+                   console.log("Resend button not displayed.");
+                 }
+               }
+               
+             }, 1000);
+           }
+           
+           window.onload = function () {
+             var duration = 10, // Set timer duration here (reduced for testing)
+                 display = document.querySelector('#timer');
+             startTimer(duration, display);
+           };
+          
+          
+           document.getElementById("resendButton").addEventListener("click", function(event) {
+            event.preventDefault();
+            resendOTP();
+          });
+          
+          function resendOTP() {
+            var email = localStorage.getItem("user_email");
+            console.log(email);
+          
+            $.ajax({
+                url: "{% url 'resend_otp' %}",
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                contentType: 'application/json',
+                data: JSON.stringify({ email: email }),
+                success: function(response) {
+                    console.log("New OTP sent successfully.");
+                    alert("New OTP has been sent to your email.");
+                    // Process response data if needed
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert("Failed to send OTP. Please try again.");
+                }
+            });
+          }
+          
+          function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+          }
+           
+           // Function to determine whether the resend button should be displayed
+           function shouldDisplayResendButton(timer) {
+             // Return true if the timer has expired
+             return timer <= 0;
+           }
+           </script>
+
+
+
+
+		<script src="{% static 'plugins/jquery/jquery-3.5.1.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'plugins/jquery-zoom/jquery.zoom.min.js' %}"></script>
+		<script src="{% static 'plugins/slick/slick.min.js' %}"></script>
+	
+		<!-- ekka Custom -->	
+		<script src="{% static 'js/ekka.js' %}"></script>
+	</body>
+</html>

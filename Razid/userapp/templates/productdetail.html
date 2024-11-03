@@ -1,0 +1,570 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+
+ 
+
+    
+    
+    
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+
+    <!-- Background css -->
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+
+
+
+  <!-- Ec breadcrumb start -->
+  <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row ec_breadcrumb_inner">
+                    <div class="col-md-6 col-sm-12">
+                        <h2 class="ec-breadcrumb-title">Shop</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <!-- ec-breadcrumb-list start -->
+                        <ul class="ec-breadcrumb-list">
+                            <li class="ec-breadcrumb-item"><a href="{% url 'home_with_encrypted_name' encrypted_name=encoded_encrypted_name %}">Home</a></li>
+                            <li class="ec-breadcrumb-item active">Shop</li>
+                        </ul>
+                        <!-- ec-breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ec breadcrumb end -->
+
+
+
+ <!-- Ec Shop page -->
+ <section class="ec-page-content section-space-p">
+    <div class="container">
+        <div class="row">
+            <div class="ec-shop-rightside col-lg-12 col-md-12">
+                <!-- Shop Top Start -->
+                <div class="ec-pro-list-top d-flex">
+                    <div class="col-md-6 ec-grid-list">
+                        <div class="ec-gl-btn">
+                            <button class="btn sidebar-toggle-icon"><i class="fi-rr-filter"></i></button>
+                            <button class="btn btn-grid-50 active"><i class="fi-rr-apps"></i></button>
+                            <button class="btn btn-list-50"><i class="fi-rr-list"></i></button>
+                        </div>
+                    </div>
+                    <form method="get">
+                        <div class="col-md-6 ec-sort-select">
+                            <span class="sort-by">Sort by</span>
+                            <div class="ec-select-inner">
+                                <select name="sort" id="ec-select" onchange="this.form.submit()" >
+                                    <option value="relevance" {% if sort == 'relevance' %}selected{% endif %}>Position</option>
+                                    <option value="name_asc" {% if sort == 'name_asc' %}selected{% endif %}>Name, A to Z</option>
+                                    <option value="name_desc" {% if sort == 'name_desc' %}selected{% endif %}>Name, Z to A</option>
+                                    <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>Price, low to high</option>
+                                    <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>Price, high to low</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Shop Top End -->
+
+                <!-- Shop content Start -->
+                <div class="shop-pro-content">
+                    <div class="shop-pro-inner">
+                        <div class="row">
+                            {% for product in products %}
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                <div class="ec-product-inner">
+                                    <div class="ec-pro-image-outer">
+                                        <div class="ec-pro-image">
+                                            <a href="{% url 'singleproduct' product.encrypted_pro_id   %}" class="image">
+                                                <img class="main-image" src="{{product.product_image.url}}"
+                                                    alt="Product" style="width: 365px; height: 410px;" />
+                                                <img class="hover-image" src="{{product.product_image.url}}"
+                                                    alt="Product" style="width: 365px; height: 410px;" />
+                                            </a>
+                                            <span class="percentage">20%</span>
+                                            {% comment %} <a href="#" class="quickview" data-link-action="quickview"
+                                                title="Quick view" data-bs-toggle="modal"
+                                                data-bs-target="#ec_quickview_modal"><i class="fi-rr-eye"></i></a> {% endcomment %}
+                                            <div class="ec-pro-actions">
+                                                {% comment %} <a href="compare.html" class="ec-btn-group compare"
+                                                    title="Compare"><i class="fi fi-rr-arrows-repeat"></i></a> {% endcomment %}
+                                                    <button title="Add To Cart" class="add-to-cart" data-product-id="{{ product.id }}">
+                                                        <i class="fi-rr-shopping-basket"></i> Add To Cart
+                                                    </button>
+                                                    <a class="ec-btn-group wishlist" title="Wishlist" data-product-id="{{ product.id }}">
+                                                        <i class="fi-rr-heart"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ec-pro-content">
+                                        <h5 class="ec-pro-title"><a href="{% url 'singleproduct' product.encrypted_pro_id  %}">{{product.title}}</a></h5>
+                                        <div class="ec-pro-rating">
+                                                
+                                            {% if product.avg_rating == 0 %}
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            
+                                            {% elif product.avg_rating == 1 %}
+                                            <i class="ecicon eci-star fill"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                         {% elif product.avg_rating == 2 %}                                                            
+                                            <i class="ecicon eci-star fill"></i>
+                                            <i class="ecicon eci-star fill"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+                                            <i class="ecicon eci-star-o"></i>
+
+
+                                         {% elif product.avg_rating == 3 %}
+                                            <i class="ecicon eci-star fill"></i>
+                                            <i class="ecicon eci-star fill"></i>
+                                            <i class="ecicon eci-star fill"></i>
+
+                                         {% elif product.avg_rating == 4 %}
+                                            <i class="ecicon eci-star fill"></i>
+                                            <i class="ecicon eci-star fill"></i>
+                                            <i class="ecicon eci-star fill"></i>
+                                            <i class="ecicon eci-star fill"></i>
+
+                                         {% elif product.avg_rating == 5 %}
+                                         <i class="ecicon eci-star fill"></i>
+                                         <i class="ecicon eci-star fill"></i>
+                                         <i class="ecicon eci-star fill"></i>
+                                         <i class="ecicon eci-star fill"></i>
+                                         <i class="ecicon eci-star fill"></i>
+                                         
+                                         {% endif %}
+                                        
+                                    </div>
+                                        <div class="ec-pro-list-desc">{{product.description}}
+                                        </div>
+                                        <span class="ec-price">
+                                            {% comment %} <span class="old-price">$27.00</span> {% endcomment %}
+                                            <span class="new-price">Rs.{{product.price}}</span>
+                                        </span>
+                                        <div class="ec-pro-option">
+                                            <!-- <div class="ec-pro-color">
+                                                <span class="ec-pro-opt-label">Color</span>
+                                                <ul class="ec-opt-swatch ec-change-img">
+                                                    <li class="active"><a href="#" class="ec-opt-clr-img"
+                                                            data-src="assets/images/product-image/6_1.jpg"
+                                                            data-src-hover="assets/images/product-image/6_1.jpg"
+                                                            data-tooltip="Gray"><span
+                                                                style="background-color:#e8c2ff;"></span></a></li>
+                                                    <li><a href="#" class="ec-opt-clr-img"
+                                                            data-src="assets/images/product-image/6_2.jpg"
+                                                            data-src-hover="assets/images/product-image/6_2.jpg"
+                                                            data-tooltip="Orange"><span
+                                                                style="background-color:#9cfdd5;"></span></a></li>
+                                                </ul>
+                                            </div> -->
+                                            <div class="ec-pro-size">
+                                                <span class="ec-pro-opt-label">Size</span>
+                                                <ul class="ec-opt-size">
+                                                    {% for size in sizes %}
+                                                    <li class="">
+                                                        <a href="#" class="ec-opt-sz">{{ size }}</a>
+
+                                                    </li>
+                                                {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                       
+                            <!-- Pagination Controls -->
+                            <div class="ec-pro-pagination">
+                                <span>Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }} item(s)</span>
+                                <ul class="ec-pro-pagination-inner">
+                                    {% if page_obj.has_previous %}
+                                        <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                                    {% endif %}
+                                    {% for num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == num %}
+                                            <li><a class="active" href="?page={{ num }}">{{ num }}</a></li>
+                                        {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                                            <li><a href="?page={{ num }}">{{ num }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                    <!-- Ec Pagination End -->
+                </div>
+                <!--Shop content End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="filter-sidebar-overlay"></div>
+            {% comment %} <div class="ec-shop-leftside filter-sidebar">
+                <div class="ec-sidebar-heading">
+                    <h1>Filter Products By</h1>
+                    <a class="filter-cls-btn" href="javascript:void(0)">×</a>
+                </div>
+                <div class="ec-sidebar-wrap">
+                    <!-- Sidebar Category Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Category</h3>
+                        </div>
+                        <div class="ec-sb-block-content">
+                            <ul>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" checked /> <a href="#">clothes</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">Bags</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">Shoes</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">cosmetics</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">electrics</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">phone</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li id="ec-more-toggle-content" style="padding: 0; display: none;">
+                                    <ul>
+                                        <li>
+                                            <div class="ec-sidebar-block-item">
+                                                <input type="checkbox" /> <a href="#">Watch</a><span
+                                                    class="checked"></span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="ec-sidebar-block-item">
+                                                <input type="checkbox" /> <a href="#">Cap</a><span
+                                                    class="checked"></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item ec-more-toggle">
+                                        <span class="checked"></span><span id="ec-more-toggle">More
+                                            Categories</span>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar Size Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Size</h3>
+                        </div>
+                        <div class="ec-sb-block-content">
+                            <ul>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" checked /><a href="#">S</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" /><a href="#">M</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" /> <a href="#">L</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" /><a href="#">XL</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" /><a href="#">XXL</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar Color item -->
+                    <div class="ec-sidebar-block ec-sidebar-block-clr">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Color</h3>
+                        </div>
+                        <div class="ec-sb-block-content">
+                            <ul>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#c4d6f9;"></span></div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#ff748b;"></span></div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#000000;"></span></div>
+                                </li>
+                                <li class="active">
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#2bff4a;"></span></div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#ff7c5e;"></span></div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#f155ff;"></span></div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#ffef00;"></span></div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#c89fff;"></span></div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#7bfffa;"></span></div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span
+                                            style="background-color:#56ffc1;"></span></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar Price Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Price</h3>
+                        </div>
+                        <div class="ec-sb-block-content es-price-slider">
+                            <div class="ec-price-filter">
+                                <div id="ec-sliderPrice" class="filter__slider-price" data-min="0" data-max="250"
+                                    data-step="10"></div>
+                                <div class="ec-price-input">
+                                    <label class="filter__label"><input type="text" class="filter__input"></label>
+                                    <span class="ec-price-divider"></span>
+                                    <label class="filter__label"><input type="text" class="filter__input"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+
+        </div>
+    </div>
+</section>
+<!-- End Shop page -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Add click event listener to "Add To Cart" buttons
+    $('.add-to-cart').on('click', function() {
+        // Get the product ID from the button's data attribute
+        const productId = $(this).data('product-id');
+        const quantity = 1; // You can adjust the quantity as needed
+
+        // Make an AJAX request to add the product to the cart
+        $.ajax({
+            url: "{% url 'add_to_cart_productdetail' %}",
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+            },
+            data: {
+                'product_id': productId,
+                'quantity': quantity
+            },
+            success: function(response) {
+                // Handle success response
+                alert('Product added to cart successfully!');
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                alert('Failed to add product to cart');
+            }
+        });
+    });
+});
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        // Add click event listener to "Add To Wishlist" buttons
+        $('.wishlist').on('click', function() {
+            // Get the product ID from the button's data attribute
+            const productId = $(this).data('product-id');
+    
+            // Make an AJAX request to add the product to the wishlist
+            $.ajax({
+                url: "{% url 'add_to_wishlist_productdetail' %}",
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                },
+                data: {
+                    'product_id': productId,
+                },
+                success: function(response) {
+                    // Handle success response
+                    alert('Product added to wishlist successfully!');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    alert('Failed to add product to wishlist');
+                }
+            });
+        });
+    });
+    </script>
+{% endblock main-content %}
