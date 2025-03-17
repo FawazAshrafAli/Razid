@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<!-- PLUGINS CSS STYLE -->
+<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/simplebar/simplebar.css' %}" rel="stylesheet" />
+
+<!-- ekka CSS -->
+<link id="ekka-css" href="{% static 'css/ekka.css' %}" rel="stylesheet" />
+
+<!-- FAVICON -->
+<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<style>
+    /* Add your custom CSS styles here */
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    /* Additional styling as needed */
+    </style>
+
+
+{% endblock %}
+
+{% block main-content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Edit Slider Image</h2>
+
+    <!-- Image Upload Form -->
+    <form action="{% url 'edit_background_slider' slider_object.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- File Input -->
+        <div class="row">
+            <div class="form-group col-md-12 col-lg-6">
+                <label for="image">Choose Image <span style="color:red;">*</span></label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                {% if slider_object.image %}
+                <small id="current-image"><span>Current Image: <a href="{{slider_object.image.url}}" target="_blank">{{slider_object.image_name}}</a></span></small>
+                {% endif %}
+            </div>
+            <div class="form-group col-md-12 col-lg-6">
+                <label for="url-input">URL</label>
+                <input type="url" class="form-control" name="url" id="url-input" placeholder="Insert URL" value="{% if slider_object.url %}{{slider_object.url}}{% endif %}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12 col-lg-6">
+                <label for="image">Main Heading</label>
+                <input type="text" class="form-control" name="head1" placeholder="Main Heading" value="{% if slider_object.heading1 %}{{slider_object.heading1}}{% endif %}">
+            </div>
+            <div class="form-group col-md-12 col-lg-6">
+                <label for="image">Sub Heading</label>
+                <input type="text" class="form-control"  name="head2" placeholder="Sub Heading" value="{% if slider_object.heading2 %}{{slider_object.heading2}}{% endif %}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description-input">Give a description</label>
+            <textarea class="form-control" name="description" id="description-input" placeholder="Description">{% if slider_object.description %}{{slider_object.description}}{% endif %}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="checkbox" class="form-check-label" >Show Text</label>
+            <input type="checkbox" class="form-check-input" id="checkbox"  name="show_text" title="Show Headings and Description" {% if slider_object.show_text %}checked{% endif %}>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(() => {
+        $('#image').on('change', function () {
+            const file = $(this)[0].files[0];
+            
+            if (file) {
+                $('#current-image').hide();
+            } else {
+                $('#current-image').show();
+            }
+
+        });
+    })
+</script>
+{% endblock %}

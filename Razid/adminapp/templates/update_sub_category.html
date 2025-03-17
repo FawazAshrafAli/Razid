@@ -1,0 +1,140 @@
+	
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<!-- PLUGINS CSS STYLE -->
+<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/simplebar/simplebar.css' %}" rel="stylesheet" />
+
+<!-- ekka CSS -->
+<link id="ekka-css" href="{% static 'css/ekka.css' %}" rel="stylesheet" />
+
+<!-- FAVICON -->
+<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+
+{% endblock %}
+
+
+{% block main-content %}
+
+    
+    
+			<!-- CONTENT WRAPPER -->
+			<div class="ec-content-wrapper">
+				<div class="content">
+					<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+						<h1>Edit Sub Category</h1>
+						<p class="breadcrumbs"><span><a href="{% url 'adminhome' %}">Home</a></span>
+							<span><i class="mdi mdi-chevron-right"></i></span>Edit Sub Category</p>
+					</div>
+					<div class="row">
+						{% include "components/message.html" %}
+						<div class="col-md-12">
+							<div class="ec-cat-list card card-default mb-24px">
+								<div class="card-body">
+									<div class="ec-cat-form">
+										<h4>Edit Sub Category</h4>
+
+										<form method="POST" action="{% url 'edit_sub_category' sub_category.slug %}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+
+											<div class="form-group row">
+                                                <div class="col-6">
+                                                    <label for="text" class="col-form-label">Name</label> 
+                                                    <input id="text" name="text" class="form-control here slug-title" type="text" value="{{sub_category.name}}">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="slug" class="col-6 col-form-label">Slug</label> 
+                                                    <input id="slug" name="slug" class="form-control here set-slug" type="text" value="{{sub_category.slug}}">
+                                                    <small>The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</small>
+                                                </div>
+											</div>																						
+
+											<div class="form-group row">
+												<div class="col-6">
+												    <label for="parent-category" class="col-12 col-form-label">Parent Category</label> 
+													<select id="parent-category" name="parent-category" class="custom-select">
+                                                        <option value="" hidden disabled selected>Select Main Category </option>
+
+                                                        {% for category in parentCategory %}
+                                                        <option value="{{category.id}}" {% if category.id == sub_category.parent_category.id %}selected{% endif %}>{{category.name}}</option>
+                                                        {% endfor %}
+
+													</select>
+												</div>
+                                                <div class="col-6">
+                                                    <label for="thumbUpload01" class="col-12 col-form-label">Image</label> 
+                                                    <div class="thumb-edit">
+                                                        <input type='file' id="thumbUpload01" name="image1"
+                                                            class="ec-image-upload"
+                                                            accept=".png, .jpg, .jpeg"/>
+                                                        <label for="imageUpload"><img
+                                                                class="svg_img header_svg"  />{% if sub_category.image %}Current Image: <a href="{{sub_category.image.url}}" target="_blank">{{sub_category.image_name}}</a>{% endif %}</label>
+                                                    </div>
+                                                </div>
+											</div>
+                                            <div class="form-group row">
+												<label class="col-12 col-form-label">Sort Description</label> 
+												<div class="col-12">
+													<textarea id="sortdescription" name="sortdescription" cols="40" rows="2" class="form-control">{% if sub_category.sort_description %}{{sub_category.sort_description}}{% endif %}</textarea>
+												</div>
+											</div> 
+											<div class="form-group row">
+												<label class="col-12 col-form-label">Full Description</label> 
+												<div class="col-12">
+													<textarea id="fulldescription" name="fulldescription" cols="40" rows="4" class="form-control">{% if sub_category.full_detail %}{{sub_category.full_detail}}{% endif %}</textarea>
+												</div>
+											</div> 
+
+											<div class="form-group row">
+												<label class="col-12 col-form-label">Product Tags <span>( Type and
+														make comma to separate tags )</span></label>
+												<div class="col-12">
+													<input type="text" class="form-control" id="group_tag" name="group_tag" value="{{sub_category.product_tag}}" placeholder="" data-role="tagsinput">
+												</div>
+											</div>
+											{% comment %} image upload {% endcomment %}											
+                                            {% comment %} end {% endcomment %}
+											<div class="row">
+												<div class="col-12">
+													<button name="submit" type="submit" class="btn btn-primary">Submit</button>
+												</div>
+											</div>
+
+										</form>
+
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div> <!-- End Content -->
+			</div> <!-- End Content Wrapper -->
+
+			{% include "components/deletion_form.html" %}
+
+    <script>
+        $(document).ready(() => {
+            $('.delete-btn').click(function () {
+                const categoryId = $(this).data('category-id');
+                const name = $(this).data('name');
+                
+                const actionUrl = `{% url 'deletelistsub' 0 %}`.replace('0', categoryId);
+    
+                $('#deletion-form').prop('action', actionUrl);
+                $('#deletion-type-name').html("Category");
+                $('#deletion-obj').html(`Category: ${name}`);
+            });
+        })
+    </script>
+
+{% endblock main-content %}

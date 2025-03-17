@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Parent Sliders{% endblock %}
+{% block extra_head %}
+
+
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<!-- PLUGINS CSS STYLE -->
+<link href="{% static 'plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/simplebar/simplebar.css' %}" rel="stylesheet" />
+
+<!-- ekka CSS -->
+<link id="ekka-css" href="{% static 'css/ekka.css' %}" rel="stylesheet" />
+
+<!-- FAVICON -->
+<link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+
+{% endblock %}
+
+
+{% block main-content %}
+
+
+	<!-- CONTENT WRAPPER -->
+    <div class="ec-content-wrapper">
+        <div class="content">
+            <div class="breadcrumb-wrapper breadcrumb-contacts">
+                <div>
+                    <h1>Parent Sliders</h1>
+                    <p class="breadcrumbs"><span><a href="{% url 'adminhome' %}">Home</a></span>
+                        <span><i class="mdi mdi-chevron-right"></i></span>Parent Sliders
+                    </p>
+                </div>
+                {% comment %} <div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#addUser"> Add User
+                    </button>
+                </div> {% endcomment %}
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="ec-vendor-list card card-default">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="responsive-data-table" class="table">
+                                    <thead>
+                                        <tr>
+                                            {% comment %} <th>Profile</th> {% endcomment %}
+                                            <th>Image</th>
+                                            <th>Heading 1</th>
+                                        
+                                            <th>Heading 2</th>
+                                            <th>Description</th>
+                                            
+                                            {% comment %} <th>Action</th> {% endcomment %}
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {% for slider_obj in slider_objs %}
+                                        <tr>
+                                            {% comment %} <td><i class="fi-rr-user"></i></td> {% endcomment %}
+                                            <td><a href="{{ slider_obj.image.url }}" target="_blank"><img src="{{slider_obj.image.url}}" alt="Image of slider image object" width=40 height=40 ></a></td>
+                                            <td>{{slider_obj.heading1}}</td>
+                                           
+                                            <td>{{slider_obj.heading2}}</td>                                            
+                                            <td>{{slider_obj.description}}</td>
+                                            <td>
+                                                <div class="btn-group mb-1">
+                                                    {% comment %} <button type="button"
+                                                        class="btn btn-outline-success">Info</button> {% endcomment %}
+                                                    <button type="button"
+                                                        class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" data-display="static">
+                                                        <span class="sr-only">Info</span>
+                                                    </button>
+
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="{% url 'edit_background_slider' slider_obj.pk %}">Edit</a>
+                                                        <a class="dropdown-item delete-toggle-btn" href="#" data-bs-toggle="modal" data-bs-target="#delete_modal" data-name="{{slider_obj.heading1}}" data-id="{{slider_obj.id}}">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                       
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% include "components/deletion_form.html" %}
+           
+
+<script>
+    $(document).ready(() => {
+        $('.delete-toggle-btn').click(function () {
+            const name = $(this).data("name");
+            const id = $(this).data("id")
+            const actionUrl = `{% url 'delete_slider_image' 'dummyId' %}`.replace('dummyId', id);
+
+            $('#deletion-type-name').html("Slider Image");
+            $('#deletion-obj').html(`Slider Heading 1: ${name}`);
+            $('#deletion-form').prop('action', actionUrl);
+        });
+    })
+</script>
+ {% endblock main-content %}

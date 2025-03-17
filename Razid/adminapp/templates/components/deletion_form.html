@@ -1,0 +1,60 @@
+<!-- <style>
+    #deletion-box {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 320px;
+        background: #fff;
+        box-shadow: 0 0 5px #777;
+    }
+</style>
+
+<div class="position-fixed px-3 pt-4" id="deletion-box">
+    <form class="w-100" method="post" action="#">
+        <h4><span style="color: red;">Deleting</span> <span id="deletion-object"></span>. . .</h4>
+        <br>
+        <h5>Are you sure?</h5>
+        <br>
+        <br>
+        <div class="form-group d-flex justify-content-between align-items-center">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary">Cancel</button>
+        </div>
+    </form>
+</div> -->
+
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-modal="true">
+	<div class="modal-dialog" role="document">
+		<button type="button" class="close md-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="btn-close xs-close" data-bs-dismiss="modal"></button>
+			  </div>
+
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<form id="deletion-form" method="post">
+                            {% csrf_token %}
+							<h4><span style="color: red;">Deleting</span> <span id="deletion-type-name"></span>. . .</h4>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label class="col-form-label">Are you sure?</label> <br>
+									<p id="deletion-obj"></p>
+								</div>
+							</div>							
+														
+							<div class="text-center d-flex justify-content-between py-3">
+								<button type="submit" class="border-0 btn btn-danger btn-gradient-primary btn-rounded">Delete</button>&nbsp;&nbsp;
+								<button type="button" class="btn btn-secondary btn-rounded" data-bs-dismiss="modal">Cancel</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+
+		</div><!-- modal-content -->
+	</div><!-- modal-dialog -->
+</div><!-- modal -->

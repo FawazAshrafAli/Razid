@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="RAZ ID Solutions - Admin">
+
+	<title>RAZ ID - Bettering Identity - Admin</title>
+
+	<!-- GOOGLE FONTS -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+	<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+	<!-- PLUGINS CSS STYLE -->
+	<link href="{% static 'plugins/simplebar/simplebar.css' %}" rel="stylesheet" />
+
+	<!-- ekka CSS -->
+	<link id="ekka-css" rel="stylesheet" href="{% static 'css/ekka.css' %}" />
+
+	<!-- FAVICON -->
+	<link href="{% static 'images/favicon.png' %}" rel="shortcut icon" />
+	
+	
+
+ <style>
+        #imagePreview {
+            max-width: 100%; /* Ensure the image scales properly */
+            display: block; /* Ensure the image is block-level for proper sizing */
+            margin: 0 auto; /* Center the image */
+        }
+		.remove-btn {
+			background-color: #fff;
+			box-shadow: 0 0 3px 0.5px silver;
+			color: #777;
+			z-index: 999;
+			border-radius: 25%;
+			padding: 4px;
+		}
+		.remove-btn:hover {
+			background-color: red;
+			color: #fff;
+		}
+    </style>
+
+</head>
+
+<body class="ec-header-fixed ec-sidebar-fixed ec-sidebar-dark ec-header-light" id="body">
+
+	<!-- WRAPPER -->
+	<div class="wrapper">
+
+		<!-- LEFT MAIN SIDEBAR -->
+		<div class="ec-left-sidebar ec-bg-sidebar">
+			<div id="sidebar" class="sidebar ec-sidebar-footer">
+
+				<div class="ec-brand">
+					<a href="{% url 'adminhome' %}" title="ekka">
+						<img class="ec-brand-icon" src="{% static 'images/logo/ec-site-logo.png' %}" alt="" />
+						<span class="ec-brand-name text-truncate">RAZ ID</span>
+					</a>
+				</div>
+
+				<!-- begin sidebar scrollbar -->
+				<div class="ec-navigation" data-simplebar>
+					<!-- sidebar menu -->
+					<ul class="nav sidebar-inner" id="sidebar-menu">
+						<!-- Dashboard -->
+						<li class="active">
+							<a class="sidenav-item-link" href="{% url 'adminhome' %}">
+								<i class="mdi mdi-view-dashboard-outline"></i>
+								<span class="nav-text">Dashboard</span>
+							</a>
+							<hr>
+						</li>
+
+						<!-- Vendors -->
+						<li class="has-sub {% if parent_slider_page %}expand{% endif %}">
+							<a class="sidenav-item-link" href="javascript:void(0)">
+								<i class="mdi mdi-account-group-outline"></i>
+								<span class="nav-text">Slider banner</span> <b class="caret"></b>
+							</a>
+							<div class="collapse  {% if parent_slider_page %}d-block{% endif %}">
+								<ul class="sub-menu" id="vendors" data-parent="#sidebar-menu">
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'backgroundslider' %}">
+											<span class="nav-text">Add parent sliders</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'parent_sliders' %}">
+											<span class="nav-text">List Parent Sliders</span>
+										</a>
+									</li>
+
+									
+									<!-- <li class="">
+										<a class="sidenav-item-link" href="vendor-profile.html">
+											<span class="nav-text">Vendors Profile</span>
+										</a>
+									</li> -->
+								</ul>
+							</div>
+						</li>
+
+						<!-- Users -->
+						<li class="has-sub">
+							<a class="sidenav-item-link" href="javascript:void(0)">
+								<i class="mdi mdi-account-group"></i>
+								<span class="nav-text">Users</span> <b class="caret"></b>
+							</a>
+							<div class="collapse">
+								<ul class="sub-menu" id="users" data-parent="#sidebar-menu">
+									<li>
+										<a class="sidenav-item-link" href="{% url 'userlist' %}">
+											<span class="nav-text">User List</span>
+										</a>
+									</li>
+
+									<!-- <li class="">
+										<a class="sidenav-item-link" href="user-list.html">
+											<span class="nav-text">User List</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="user-profile.html">
+											<span class="nav-text">Users Profile</span>
+										</a>
+									</li> -->
+								</ul>
+							</div>
+							<hr>
+						</li>
+
+						<!-- Category -->
+						<li class="has-sub">
+							<a class="sidenav-item-link" href="javascript:void(0)">
+								<i class="mdi mdi-dns-outline"></i>
+								<span class="nav-text">Categories</span> <b class="caret"></b>
+							</a>
+							<div class="collapse">
+								<ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'category' %}">
+											<span class="nav-text">Main Category</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'subcategory' %}">
+											<span class="nav-text">Sub Category</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+
+			<!-- Products -->
+			<li class="has-sub">
+				<a class="sidenav-item-link" href="javascript:void(0)">
+					<i class="mdi mdi-palette-advanced"></i>
+					<span class="nav-text">Products</span> <b class="caret"></b>
+				</a>
+				<div class="collapse">
+					<ul class="sub-menu" id="products" data-parent="#sidebar-menu">
+						<li class="">
+							<a class="sidenav-item-link" href="{% url 'add_product' %}">
+								<span class="nav-text">Add Product</span>
+							</a>
+						</li>
+						<li class="">
+							<a class="sidenav-item-link" href="{% url 'productlist' %}">
+								<span class="nav-text">List Product</span>
+							</a>
+						</li>
+						<li class="">
+							<a class="sidenav-item-link" href="{% url 'product_grid' %}">
+								<span class="nav-text">Grid Product</span>
+							</a>
+						</li>
+						
+					</ul>
+				</div>
+			</li>
+
+						<!-- Orders -->
+						<li class="has-sub">
+							<a class="sidenav-item-link" href="javascript:void(0)">
+								<i class="mdi mdi-cart"></i>
+								<span class="nav-text">Orders</span> <b class="caret"></b>
+							</a>
+							<div class="collapse">
+								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'neworder' %}">
+											<span class="nav-text">New Order</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'orderhistory' %}">
+											<span class="nav-text">Order History</span>
+										</a>
+									</li>
+									{% comment %} <li class="">
+									
+										
+											<a class="sidenav-item-link" href="{% url 'orderdetail'  %}">
+												<span class="nav-text">Order Detail</span>
+											</a>
+									
+										
+									</li> {% endcomment %}
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'neworder_image' %}">
+											<span class="nav-text">Orders with image uploads</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+
+						<!-- Reviews -->
+						<li>
+							<a class="sidenav-item-link" href="{% url 'review' %}">
+								<i class="mdi mdi-star-half"></i>
+								<span class="nav-text">Reviews</span>
+							</a>
+						</li>
+
+						<!-- Brands -->
+						<li class="has-sub">
+							<a class="sidenav-item-link" href="javascript:void(0)">
+								<i class="mdi mdi-palette-advanced"></i>
+								<span class="nav-text">Custom Pages</span> <b class="caret"></b>
+							</a>
+							<div class="collapse">
+								<ul class="sub-menu" id="products" data-parent="#sidebar-menu">
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'create_static_page' %}">
+											<span class="nav-text">Create Pages</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="{% url 'static_page_list' %}">
+											<span class="nav-text">Manage Pages</span>
+										</a>
+									</li>								
+									
+								</ul>
+							</div>
+						</li>
+									
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- PAGE WRAPPER -->
+		<div class="ec-page-wrapper">
+
+			<!-- Header -->
+			<header class="ec-main-header" id="header">
+				<nav class="navbar navbar-static-top navbar-expand-lg">
+					<!-- Sidebar toggle button -->
+					<button id="sidebar-toggler" class="sidebar-toggle"></button>
+					<!-- search form -->
+					<div class="search-form d-lg-inline-block">						
+						<div id="search-results-container">
+							<ul id="search-results"></ul>
+						</div>
+					</div>
+
+					<!-- navbar right -->
+					<div class="navbar-right">
+						<ul class="nav navbar-nav">
+							<!-- User Account -->
+							<li class="dropdown user-menu">
+								<button class="dropdown-toggle nav-link ec-drop" data-bs-toggle="dropdown"
+									aria-expanded="false">
+									<img src="{% static 'images/user/user.png' %}" class="user-image" alt="User Image" />
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right ec-dropdown-menu">
+									<!-- User image -->
+									<li class="dropdown-header">
+										<img src="{% static 'images/user/user.png' %}" class="img-circle" alt="User Image" />
+										{% if admin_user %}
+										<div class="d-inline-block">
+											{{ admin_user.username }} <small class="pt-1">{{ admin_user.email }}</small>
+										</div>
+										{% else %}
+										<div class="d-inline-block">
+											{{request.user.username}}
+										</div>
+										{% endif %}
+									</li>
+									<!-- <li>
+										<a href="user-profile.html">
+											<i class="mdi mdi-account"></i> My Profile
+										</a>
+									</li> -->									
+									<li>
+										<a href="{% url 'admin_inquiries' %}"> <i class="mdi mdi-message"></i> Enquiries </a>
+									</li>
+									<li class="right-sidebar-in">
+										<a href="javascript:0"> <i class="mdi mdi-settings-outline"></i> Setting </a>
+									</li>
+									<li class="dropdown-footer">
+										<a href="{% url 'logout_admin' %}"> <i class="mdi mdi-logout"></i> Log Out </a>
+									</li>
+								</ul>
+							</li>							
+							<li class="right-sidebar-in right-sidebar-2-menu">
+								<i class="mdi mdi-settings-outline mdi-spin"></i>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</header>	
+
+			<!-- CONTENT WRAPPER -->
+			<div class="ec-content-wrapper">
+				<div class="content">
+					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+						<div>
+							<h1>Add Product</h1>
+							<p class="breadcrumbs"><span><a href="{% url 'adminhome' %}">Home</a></span>
+								<span><i class="mdi mdi-chevron-right"></i></span>Product</p>
+						</div>
+						<div>
+							<a href="{% url 'product_grid' %}" class="btn btn-primary"> View All
+							</a>
+						</div>
+					</div>
+					<div class="row">
+						{% include "components/message.html" %}
+						<div class="col-12">
+							<div class="card card-default">
+								<div class="card-header card-header-border-bottom">
+									<h2>Add Product</h2>
+								</div>
+                                <form method="POST" enctype="multipart/form-data" action="#" id="main-form" onsubmit="return validateForm()">
+									{% csrf_token %}
+								<div class="card-body">
+									<div class="row ec-vendor-uploads">
+										<div class="col-lg-4">
+											<div class="ec-vendor-img-upload">
+												<div class="ec-vendor-main-img">
+													<div class="avatar-upload">
+														<div class="avatar-edit">
+															<input type='file' id="imageUpload" name="image" class="ec-image-upload"
+																accept=".png, .jpg, .jpeg" />
+															<label for="imageUpload"><img
+																	src="{% static 'images/icons/edit.svg' %}"
+																	class="svg_img header_svg" alt="edit" /></label>
+														</div>
+														<div class="avatar-preview ec-preview">
+															<div class="imagePreview ec-div-preview">
+																<img class="ec-image-preview" id="main-image"
+																	src="{% static 'images/products/vender-upload-preview.jpg' %}"
+																	alt="edit" />
+															</div>
+														</div>
+													</div>
+													
+														<div class="thumb-upload-set col-md-12">
+															<div class="thumb-upload">
+																<div class="thumb-edit d-flex flex-column justify-content-end">
+																	<input type='file' id="thumbUpload01" name="image1"
+																		class="ec-image-upload"
+																		accept=".png, .jpg, .jpeg" />
+																	<label for="imageUpload"><img
+																			src="{% static 'images/icons/edit.svg' %}"
+																			class="svg_img header_svg" alt="edit" /></label>																	
+																</div>																
+																<div class="thumb-preview ec-preview">
+																	<div class="image-thumb-preview">
+																		<img class="image-thumb-preview ec-image-preview" 
+																			src="{% static 'images/products/vender-upload-thumb-preview.jpg' %}"
+																			alt="edit" />
+																	</div>
+																</div>
+															</div>
+															<div class="thumb-upload">
+																<div class="thumb-edit d-flex flex-column justify-content-end">
+																	
+																	<input type='file' id="thumbUpload02" name="image2"
+																		class="ec-image-upload"
+																		accept=".png, .jpg, .jpeg" />
+																	<label for="imageUpload"><img
+																			src="{% static 'images/icons/edit.svg' %}"
+																			class="svg_img header_svg" alt="edit" /></label>																	
+																</div>
+																<div class="thumb-preview ec-preview">
+																	<div class="image-thumb-preview">
+																		<img class="image-thumb-preview ec-image-preview" name="image2"
+																			src="{% static 'images/products/vender-upload-thumb-preview.jpg' %}"
+																			alt="edit" />
+																	</div>
+																</div>
+															</div>
+															<div class="thumb-upload">
+																<div class="thumb-edit d-flex flex-column justify-content-end">
+																	<input type='file' id="thumbUpload03" name="image3"
+																		class="ec-image-upload"
+																		accept=".png, .jpg, .jpeg" />
+																	<label for="imageUpload"><img
+																			src="{% static 'images/icons/edit.svg' %}"
+																			class="svg_img header_svg" alt="edit" /></label>																	
+																</div>
+																<div class="thumb-preview ec-preview">
+																	<div class="image-thumb-preview">
+																		<img class="image-thumb-preview ec-image-preview" name="image3"
+																			src="{% static 'images/products/vender-upload-thumb-preview.jpg' %}"
+																			alt="edit" />
+																	</div>
+																</div>
+															</div>
+															<div class="thumb-upload">
+																<div class="thumb-edit d-flex flex-column justify-content-end">
+																	<input type='file' id="thumbUpload04" name="image4"
+																		class="ec-image-upload"
+																		accept=".png, .jpg, .jpeg" />
+																	<label for="imageUpload"><img
+																			src="{% static 'images/icons/edit.svg' %}"
+																			class="svg_img header_svg" alt="edit" /></label>																	
+																</div>
+																<div class="thumb-preview ec-preview">
+																	<div class="image-thumb-preview">
+																		<img class="image-thumb-preview ec-image-preview" name="image4"
+																			src="{% static 'images/products/vender-upload-thumb-preview.jpg' %}"
+																			alt="edit" />
+																	</div>
+																</div>
+															</div>
+															<div class="thumb-upload">
+																<div class="thumb-edit d-flex flex-column justify-content-end">
+																	<input type='file' id="thumbUpload05" name="image5"
+																		class="ec-image-upload"
+																		accept=".png, .jpg, .jpeg" />
+																	<label for="imageUpload"><img
+																			src="{% static 'images/icons/edit.svg' %}"
+																			class="svg_img header_svg" alt="edit" /></label>																	
+																</div>
+																<div class="thumb-preview ec-preview">
+																	<div class="image-thumb-preview">
+																		<img class="image-thumb-preview ec-image-preview" name="image5"
+																			src="{% static 'images/products/vender-upload-thumb-preview.jpg' %}"
+																			alt="edit" />
+																	</div>
+																</div>
+															</div>
+															<div class="thumb-upload">
+																<div class="thumb-edit d-flex flex-column justify-content-end">
+																	<input type='file' id="thumbUpload06" name="image6"
+																		class="ec-image-upload"
+																		accept=".png, .jpg, .jpeg" />
+																	<label for="imageUpload"><img
+																			src="{% static 'images/icons/edit.svg' %}"
+																			class="svg_img header_svg" alt="edit" /></label>																	
+																</div>
+																<div class="thumb-preview ec-preview">
+																	<div class="image-thumb-preview">
+																		<img class="image-thumb-preview ec-image-preview" name="image6"
+																			src="{% static 'images/products/vender-upload-thumb-preview.jpg' %}"
+																			alt="edit" />
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-8">
+												<div class="ec-vendor-upload-detail">
+													<div class="row g-3">
+														<div class="col-md-12 mb-3">
+															<label for="inputEmail4" class="form-label">Product name</label>
+															<input type="text" name="product_name" class="form-control slug-title" id="inputEmail4">
+														</div>
+													</div>
+													<div class="row g-3">
+														<div class="col-md-6 mb-3">
+															<label class="form-label">Category</label>
+															<select id="category-dropdown" class="form-select">
+																<option value="" selected hidden disabled>Select Category</option>
+																{% for category in categories %}
+																<option value="{{category.pk}}">{{category.name}}</option>
+																{% endfor %}
+															</select>
+														</div>
+														<div class="col-md-6 mb-3">
+															<label class="form-label">Sub Category</label>
+															<select name="sub_category" id="sub-category-dropdown" class="form-select">	
+																<option value="" selected hidden disabled>Select Sub Category</option>															
+															</select>
+														</div>
+													</div>
+													<div class="row g-3">
+														<div class="col-md-12 mb-3">
+															<label for="slug" class="col-12 col-form-label">Slug</label> 
+															<div class="col-12">
+																<input id="slug" name="slug" class="form-control here set-slug" type="text">
+															</div>
+														</div>
+													</div>
+													<div class="row g-3">
+														<div class="col-md-12 mb-3">
+															<div class="row">
+																<label for="slug" class="col-12 col-form-label">Type of URL Path</label> 
+																<div class="col-6">
+																	<label for="category-path">
+																		Following Category&nbsp;
+																		<input id="category-path" name="url_type" class="form-check-input" type="radio" value="Category" checked>
+																	</label>
+																</div>
+																<div class="col-6">
+																	<label for="sub-category-path">
+																		Following Sub Category&nbsp;
+																		<input id="sub-category-path" name="url_type" class="form-check-input" type="radio" value="Sub Category">
+																	</label>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row g-3">
+														<div class="col-md-12 mb-3">
+															<label class="form-label">Sort Description</label>
+															<textarea class="form-control" rows="2" name="description"></textarea>
+														</div>
+													</div>
+													<div class="row g-3">
+														<div class="col-md-6 mb-3">
+															<label class="form-label">Availability</label>
+															<select name="availability" id="Categories" class="form-select">
+																{% for stock in stock_availability %}
+																
+																	<option value="{{stock}}">{{stock}}</option>
+																	
+	
+																	
+																
+																{% endfor %}
+																
+															</select>
+														</div>													
+	
+														<div class="col-md-6 mb-3">
+															<label class="form-label">Colors</label>
+															<div id="productForm" class="d-flex align-items-center">
+															
+																<!-- Default color inputs -->
+																<input type="color" class="form-control form-control-color" name="color1" value="#ff6191" title="Choose your color">
+																<input type="color" class="form-control form-control-color" name="color2" value="#33317d" title="Choose your color">
+																<input type="color" class="form-control form-control-color" name="color3" value="#56d4b7" title="Choose your color">
+																<input type="color" class="form-control form-control-color" name="color4" value="#009688" title="Choose your color">
+															
+																<button type="button" id="addColorButton" class="btn btn-secondary">+</button>
+																<button type="button" id="removeColorButton" class="btn btn-secondary">-</button>
+																													
+															</div>
+														</div>
+	
+														<!-- <div class="container mt-3"> -->
+															<div class="row">
+																<div class="col-md-6 mb-3">
+																	<label for="sizeCheckboxes">Select Sizes:</label>
+																	<div id="sizeCheckboxes" class="d-flex justify-content-between">
+																		<div class="form-check">
+																			<input class="form-check-input" type="checkbox" name="size" value="s" id="sizeS">
+																			<label class="form-check-label" for="sizeS">S</label>
+																		</div>
+																		
+																		<div class="form-check">
+																			<input class="form-check-input" type="checkbox" name="size" value="m" id="sizeM">
+																			<label class="form-check-label" for="sizeM">M</label>
+																		</div>
+																		
+																		<div class="form-check">
+																			<input class="form-check-input" type="checkbox" name="size" value="l" id="sizeL">
+																			<label class="form-check-label" for="sizeL">L</label>
+																		</div>
+																		
+																		<div class="form-check">
+																			<input class="form-check-input" type="checkbox" name="size" value="xl" id="sizeXL">
+																			<label class="form-check-label" for="sizeXL">XL</label>
+																		</div>
+																		
+																		<div class="form-check">
+																			<input class="form-check-input" type="checkbox" name="size" value="xxl" id="sizeXXL">
+																			<label class="form-check-label" for="sizeXXL">XXL</label>
+																		</div>
+																																				
+																	</div>
+																</div>
+																<!-- Hidden input field to store selected sizes -->
+																<input type="hidden" name="selectedSizes" id="selectedSizes" />
+
+																<div class="col-md-6 mb-3">
+																		
+																	<div id="customSizeField">
+																		
+																		<label for="customSizeInput">Custom Size:</label>
+																		<input type="text" class="form-control" id="customSizeInput" name="customsize">
+																	</div>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-6 mb-3">
+																	<label class="form-label">Price <span>( In INR
+																			)</span></label>
+																	<input type="text" class="form-control" id="price1" name="price">
+																</div>
+																<div class="col-md-6 mb-3">
+																	<label class="form-label">Quantity</label>
+																	<input type="number" class="form-control" id="quantity1" name="quantity">
+																</div>
+	
+	
+															</div>
+															
+														<!-- </div> -->
+														
+	
+																
+														
+														<div class="row">
+															<div class="col-md-12 mb-3">
+																<label class="form-label">Ful Detail</label>
+																<textarea name="fulldetail" class="form-control" rows="4"></textarea>
+															</div>
+														</div>
+														<div class="row">
+														<div class="col-md-12 mb-3">
+															<label class="form-label">Product Tags <span>( Type and
+																	make comma to separate tags )</span></label>
+															<input type="text" class="form-control" id="group_tag"
+																name="group_tag" value="" placeholder=""
+																data-role="tagsinput" />
+														
+															</div>
+	
+															<div class="col-md-12">
+																<label for="admin_choice">Does customer need to upload picture here?</label>
+																<select id="admin_choice" name="admin_choice">
+																	<option value="yes">Yes</option>
+																	<option value="no">No</option>
+																</select>
+															</div>
+	
+	
+														<div class="col-md-12">
+															<button type="submit" class="btn btn-primary"  >Submit</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								</div>
+							</form>
+                            
+							</div>
+						</div>
+					</div> <!-- End Content -->
+				</div> <!-- End Content Wrapper -->
+	
+
+			<!-- Footer -->
+			<footer class="footer mt-auto">
+				<div class="copyright bg-white">
+					<p>
+						Copyright &copy; <span id="ec-year"></span><a class="text-primary"
+						href="https://zentrix.in/" target="_blank"> RAZ ID Admin Dashboard</a>. All Rights Reserved.
+					  </p>
+				</div>
+			</footer>
+
+		</div> <!-- End Page Wrapper -->
+	</div> <!-- End Wrapper -->
+
+	
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('input[type="color"]').change(function () {
+            var colorName = $(this).attr('name');
+            var colorValue = $(this).val();
+
+            // Remove any existing hidden input with the same name
+            // $('#productForm').find('input[name="' + colorName + '"]')
+
+            // Append a new hidden input with the updated color value
+            $('#productForm').append('<input type="hidden" name="' + colorName + '" value="' + colorValue + '">');
+        });
+
+        // Function to handle adding a new color input
+        function addColorInput() {
+            var newColorInput = document.createElement("input");
+            newColorInput.type = "color";
+            newColorInput.className = "form-control form-control-color";
+            newColorInput.name = "additionalColor";
+            newColorInput.title = "Choose your color";
+
+            // Append the new color input to the productForm div
+            $('#productForm').append(newColorInput);
+            
+            // Add a corresponding hidden input for the new color
+            $('#productForm').append('<input type="hidden" name="' + newColorInput.name + '" value="' + newColorInput.value + '">');
+        }
+
+        // Function to handle removing the last added color input
+        function removeColorInput() {
+            var colorInputs = $('#productForm').find('input[type="color"]');
+
+            // Ensure there is at least one default color input
+            if (colorInputs.length > 4) {
+                // Remove the last added color input
+                colorInputs.last().remove();
+            }
+        }
+
+        // Attach click events to the plus and minus buttons
+        $('#addColorButton').click(function () {
+            addColorInput();
+        });
+
+        $('#removeColorButton').click(function () {
+            removeColorInput();
+        });
+    });
+</script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	  var sizeCheckboxes = document.getElementsByName('size');
+	  var customSizeField = document.getElementById('customSizeField');
+	  var customSizeInput = document.getElementById('customSizeInput');
+  
+	  sizeCheckboxes.forEach(function (checkbox) {
+		checkbox.addEventListener('change', updateCustomSizeField);
+	  });
+  
+	  function updateCustomSizeField() {
+		var selectedSizes = [];
+  
+		sizeCheckboxes.forEach(function (checkbox) {
+		  if (checkbox.checked) {
+			selectedSizes.push(checkbox.value);
+		  }
+		});
+  
+		if (selectedSizes.includes('mm')) {
+		  customSizeField.style.display = 'block';
+  
+		  // Hide other checkboxes
+		  sizeCheckboxes.forEach(function (checkbox) {
+			checkbox.style.display = 'none';
+		  });
+  
+		  customSizeInput.value = '';
+		} else {
+		  customSizeField.style.display = 'none';
+  
+		  // Show other checkboxes
+		  sizeCheckboxes.forEach(function (checkbox) {
+			checkbox.style.display = 'block';
+		  });
+		}
+	  }
+	});
+  </script>
+
+	<!-- Common Javascript -->
+	<script src="{% static 'plugins/jquery/jquery-3.5.1.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'plugins/tags-input/bootstrap-tagsinput.js' %}"></script>
+	<script src="{% static 'plugins/simplebar/simplebar.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery-zoom/jquery.zoom.min.js' %}"></script>
+	<script src="{% static 'plugins/slick/slick.min.js' %}"></script>
+
+	<!-- Option Switcher -->
+	<script src="{% static 'plugins/options-sidebar/optionswitcher.js' %}"></script>
+
+	<!-- ekka Custom -->
+	<script src="{% static 'js/ekka.js' %}"></script>
+
+	<script>
+		$(document).ready(() => {
+			$('#category-dropdown').on('change', function () {
+				const categoryId = $(this).val()
+				$.ajax({
+					type: "GET",
+					url: `{% url 'get_sub_categories' %}`,
+					dataType: "json",
+					data: {"category_id": categoryId},
+					success: response => {
+						if (response.status == "failed") {
+							console.error(response.message);
+						}
+
+						if (response.status == "success") {
+							$('#sub-category-dropdown').html(`<option value="" selected hidden disabled>Select Sub Category</option>`);
+							if (response.sub_categories) {
+								response.sub_categories.forEach(sub_category => {
+									$('#sub-category-dropdown').append(`
+									<option value="${sub_category.id}">${sub_category.name}</option>
+									`);
+								});
+							}
+						}
+					},
+					error: error => console.error("Error: ", error),
+				});
+			});
+
+			// Image Change
+			$(document).on('change', '#thumbUpload01, #thumbUpload02, #thumbUpload03, #thumbUpload04, #thumbUpload05, #thumbUpload06', function () {								
+				const file = $(this)[0].files[0];
+
+				if (file) {					
+					const parentDiv = $(this).parent();
+					
+					const labelObject = parentDiv.find('label');
+					
+					if (labelObject) {
+						labelObject.remove();					
+						parentDiv.append(`<a href="#" class="btn m-0 remove-btn" title="Remove Image"><i class="mdi mdi-close"></i></a>`);
+					}
+
+				}
+			});
+
+			$(document).on('click', '.remove-btn', function (e) {
+				e.preventDefault();
+
+				const parentDiv = $(this).parent();
+
+				const labelObject = parentDiv.find('a');
+
+				if (labelObject) {
+					const inputObject = parentDiv.find('input');
+					const file = inputObject[0].files[0];
+
+					if (file) {
+						inputObject.val('');
+						
+						const grandParentDiv = parentDiv.parent();
+						const imgObject = grandParentDiv.find('.ec-image-preview');
+
+						if (imgObject) {
+							imgObject.prop('src', `{% static 'images/products/vender-upload-thumb-preview.jpg' %}`);
+						}
+					}
+
+					labelObject.remove();										
+					parentDiv.append(`
+					<label for="imageUpload">
+						<img src="{% static 'images/icons/edit.svg' %}" class="svg_img header_svg" alt="edit" />
+					</label>
+					`);
+				}
+			});
+
+			$(document).on('change', '#imageUpload, #thumbUpload01, #thumbUpload02, #thumbUpload03, #thumbUpload04, #thumbUpload05, #thumbUpload06', function () {
+				const fileInput = $(this);
+				const file = fileInput[0].files[0];
+
+				if (file) {
+					if (file && file.type.startsWith("image")) {
+						let image = new Image();
+
+						image.src = URL.createObjectURL(file);
+						
+						image.onload = function () {
+							const imageWidth = image.width;
+							const imageHeight = image.height;
+
+							if (imageWidth != imageHeight) {
+
+								window.alert("Invalid image provided. Please provide a square image instead");
+							}
+		
+						}					
+					} else {
+						window.alert("Please provide an image file");
+					}
+				}	
+			});
+			
+
+			setTimeout(() => {
+				$('.messages').fadeOut();
+			}, 5000);
+		});
+	</script>
+</body>
+
+</html>

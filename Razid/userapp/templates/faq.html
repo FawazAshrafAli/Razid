@@ -1,0 +1,212 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% comment %} {% load custom_filters %} {% endcomment %}
+
+{% block title %}FAQ{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+  <!-- site Favicon -->
+  <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+  <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+  <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+  <!-- css Icon Font -->
+  <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+  <!-- css All Plugins Files -->
+  <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+  <!-- Main Style -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+
+  <!-- Background css -->
+
+  {% endblock %}
+
+    {% block main-content %}
+
+    <!-- Ec breadcrumb start -->
+    <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row ec_breadcrumb_inner">
+                        <div class="col-md-6 col-sm-12">
+                            <h2 class="ec-breadcrumb-title">FAQ</h2>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <!-- ec-breadcrumb-list start -->
+                            <ul class="ec-breadcrumb-list">
+                                <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="ec-breadcrumb-item active">FAQ</li>
+                            </ul>
+                            <!-- ec-breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ec breadcrumb end -->
+    <!-- Ec FAQ page -->
+    <section class="ec-page-content section-space-p">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-12 text-center">
+                    <div class="section-title">
+                        <h2 class="ec-bg-title">FAQ</h2>
+                        <h2 class="ec-title">FAQ</h2>
+                        <!-- <p class="sub-title mb-3">Customer service management</p> -->
+                    </div>
+                </div>
+                {% if data.image %}
+                <div class="col-md-12 mb-2 text-center">
+                    <img src="{{data.image.url}}" alt="FAQ Image" style="max-height: 240px;">
+                </div>
+                {% endif %}
+                <div class="ec-faq-wrapper">
+                    <div class="ec-faq-container">
+                        {% if data %}
+                        <p>{{ data.content|safe }}</p>
+                        {% else %}
+                        <p>No content available.</p>
+                        {% endif %}
+
+                        <!-- <h2 class="ec-faq-heading">What is ekka services?</h2>
+                        <div id="ec-faq">
+                            <div class="col-sm-12 ec-faq-block">
+                                <h4 class="ec-faq-title">What is the multi vendor services?</h4>
+                                <div class="ec-faq-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknown printer took a galley of type and scrambled it to make a type specimen
+                                        book. It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged. </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 ec-faq-block">
+                                <h4 class="ec-faq-title">How to buy many products at a time?</h4>
+                                <div class="ec-faq-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknown printer took a galley of type and scrambled it to make a type specimen
+                                        book. It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged. </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 ec-faq-block">
+                                <h4 class="ec-faq-title">Refund policy for customer</h4>
+                                <div class="ec-faq-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknown printer took a galley of type and scrambled it to make a type specimen
+                                        book. It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged. </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 ec-faq-block">
+                                <h4 class="ec-faq-title">Exchange policy for customer</h4>
+                                <div class="ec-faq-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknown printer took a galley of type and scrambled it to make a type specimen
+                                        book. It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged. </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 ec-faq-block">
+                                <h4 class="ec-faq-title">Give a way products available</h4>
+                                <div class="ec-faq-content">
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknown printer took a galley of type and scrambled it to make a type specimen
+                                        book. It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged. </p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock main-content %}

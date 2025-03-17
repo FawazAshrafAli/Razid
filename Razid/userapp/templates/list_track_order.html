@@ -1,0 +1,254 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% comment %} {% load custom_filters %} {% endcomment %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+
+<link rel="canonical" href="https://razid.in/">
+
+ <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "Keyphrases",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Keyword 1"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 2"
+      },
+      {
+        "@type": "Thing",
+        "name": "Keyword 3"
+      }
+      // Add more keyphrases as needed
+    ]
+  }
+}
+</script>
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Online Printing Services in India | RAZID Solutions",
+    "url": "https://razid.in/",
+    "logo": "https://razid.in/assets/images/logo/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/Razidsolutions/",
+      "https://twitter.com/RazidSolutions",
+      "https://www.youtube.com/channel/UC5kLK0tYkJnZWq6AWyqD3Ow/",
+	  "https://www.instagram.com/razidsolutions/",
+	  "https://in.pinterest.com/RazidSolutions/"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Customer Service",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Technical Support",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91-9447-574-488",
+        "contactType": "Sales",
+        "contactOption": "TollFree",
+        "areaServed": "IN"
+      }
+    ]
+  }
+  </script>
+
+
+ 
+
+    
+    
+    
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicon/favicon.png' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'images/favicon/favicon.png' %}" />
+
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'css/vendor/ecicons.min.css' %}" />
+
+    <!-- css All Plugins Files -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/countdownTimer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.css' %}" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/demo1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    
+    
+    
+      <link rel="stylesheet" href="{% static 'css/plugins/owl.carousel.min.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/plugins/owl.theme.default.min.css' %}" />
+
+    <!-- Background css -->
+
+
+{% endblock %}
+
+
+
+    
+{% block main-content %}
+
+ <!-- Ec breadcrumb start -->
+ <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <div class="row ec_breadcrumb_inner">
+                  <div class="col-md-6 col-sm-12">
+                      <h2 class="ec-breadcrumb-title">Track Orders</h2>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                      <!-- ec-breadcrumb-list start -->
+                      <ul class="ec-breadcrumb-list">
+                          <li class="ec-breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                          <li class="ec-breadcrumb-item active">Track</li>
+                      </ul>
+                      <!-- ec-breadcrumb-list end -->
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Ec breadcrumb end -->
+
+<!-- Ec Track Order section -->
+<section class="ec-page-content section-space-p">
+    <div class="container">
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="responsive-data-table" class="table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Items</th>                                
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Payment</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Ordered Date</th>
+                                <th class="text-center" title="Estimated Date of Arrival">EDA</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{order.order_id}}</td>
+                                <td>
+                                    <ul>
+                                        {% for product in order.products %}
+                                        <ol>
+                                            {{product.item}}
+                                        </ol>
+                                        {% endfor %}
+                                    </ul>
+                                    {{order.product.title}}
+                                </td>                                
+                                <td class="text-center">Rs. {{order.amount}}</td>
+                                <td class="text-center">{{order.payment_method}}</td>
+                                <td class="text-center">
+                                    <div class="rounded-pill text-light" style="background-color: {% if order.status|lower == 'pending' %}grey{% else %} #12aef1{% endif %}" >{{order.status}}</div>
+                                </td>
+                                <td class="text-center">{{order.ordered_date.date}}</td>    
+                                <td class="text-center">{{order.delivery_expected_date}}</td>
+                                <td class="text-center">
+                                    <div class="btn-group mb-1">
+                                        <a href="{% url 'track_order_detail' order.order_id %}" class="btn btn-outline-success">Track</a>                                        
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}                         
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- {% for order in orders %}
+        {% if order.status != 'Delivered' %}
+            <div class="ec-trackorder-content col-md-12">
+                <div class="ec-trackorder-inner">
+                    <div class="ec-trackorder-top">
+                        <h2 class="ec-order-id">Order #{{ order.order_id }}</h2>
+                        <div class="ec-order-detail">
+                            <div>Expected arrival {{ order.delivery_expected_date|date:"d-m-Y" }}</div>
+                            <div>{{ order.product }} <span>{{ order.product_code }}</span></div>
+                        </div>
+                    </div>
+                    <div class="ec-trackorder-bottom">
+                        <div class="ec-progress-track">
+                          <ul id="ec-progressbar">
+                            <li class="step0 {% if order.status == 'Pending' or order.status == 'Processing' or order.status == 'Shipped' or order.status == 'Enroute' or order.status == 'Delivered' %} active {% endif %}">
+                                <span class="ec-track-icon"> <img src="{% static 'images/icons/track_1.png' %}" alt="track_order"></span>
+                                <span class="ec-progressbar-track"></span>
+                                <span class="ec-track-title">Order pending</span>
+                            </li>
+                            <li class="step0 {% if order.status == 'Processing' or order.status == 'Shipped' or order.status == 'Enroute' or order.status == 'Delivered' %} active {% endif %}">
+                                <span class="ec-track-icon"> <img src="{% static 'images/icons/track_2.png' %}" alt="track_order"></span>
+                                <span class="ec-progressbar-track"></span>
+                                <span class="ec-track-title">Order processing</span>
+                            </li>
+                            <li class="step0 {% if order.status == 'Shipped' or order.status == 'Enroute' or order.status == 'Delivered' %} active {% endif %}">
+                                <span class="ec-track-icon"> <img src="{% static 'images/icons/track_3.png' %}" alt="track_order"></span>
+                                <span class="ec-progressbar-track"></span>
+                                <span class="ec-track-title">Order shipped</span>
+                            </li>
+                            <li class="step0 {% if order.status == 'Enroute' or order.status == 'Delivered' %} active {% endif %}">
+                                <span class="ec-track-icon"> <img src="{% static 'images/icons/track_4.png' %}" alt="track_order"></span>
+                                <span class="ec-progressbar-track"></span>
+                                <span class="ec-track-title">Order enroute</span>
+                            </li>  
+                            <li class="step0 {% if order.status == 'Delivered' %} active {% endif %}">
+                                <span class="ec-track-icon"> <img src="{% static 'images/icons/track_5.png' %}" alt="track_order"></span>
+                                <span class="ec-progressbar-track"></span>
+                                <span class="ec-track-title">Order delivered</span>
+                            </li>
+                        </ul>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %} -->
+    </div>
+</section>
+<!-- End Track Order section -->
+
+    
+
+
+{% endblock main-content %}
